@@ -53,6 +53,12 @@ class Sortie
     #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Inscription::class)]
     private Collection $inscriptions;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $motifAnnulation = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photoSortie = null;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -211,6 +217,30 @@ class Sortie
                 $inscription->setSortie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMotifAnnulation(): ?string
+    {
+        return $this->motifAnnulation;
+    }
+
+    public function setMotifAnnulation(?string $motifAnnulation): static
+    {
+        $this->motifAnnulation = $motifAnnulation;
+
+        return $this;
+    }
+
+    public function getPhotoSortie(): ?string
+    {
+        return $this->photoSortie;
+    }
+
+    public function setPhotoSortie(?string $photoSortie): static
+    {
+        $this->photoSortie = $photoSortie;
 
         return $this;
     }

@@ -43,6 +43,12 @@ class Participant
     #[ORM\OneToMany(mappedBy: 'participant', targetEntity: Inscription::class)]
     private Collection $inscriptions;
 
+    #[ORM\Column(length: 50)]
+    private ?string $pseudo = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $password = null;
+
     public function __construct()
     {
         $this->sortiesOrganisee = new ArrayCollection();
@@ -194,6 +200,30 @@ class Participant
                 $inscription->setParticipant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): static
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
 
         return $this;
     }
