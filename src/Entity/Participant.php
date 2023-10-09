@@ -33,9 +33,6 @@ class Participant
     #[ORM\Column]
     private ?bool $actif = null;
 
-    #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participants')]
-    private Collection $sorties;
-
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
     private Collection $sortiesOrganisee;
 
@@ -45,7 +42,6 @@ class Participant
 
     public function __construct()
     {
-        $this->sorties = new ArrayCollection();
         $this->sortiesOrganisee = new ArrayCollection();
     }
 
@@ -122,33 +118,6 @@ class Participant
     public function setActif(bool $actif): static
     {
         $this->actif = $actif;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Sortie>
-     */
-    public function getSorties(): Collection
-    {
-        return $this->sorties;
-    }
-
-    public function addSorty(Sortie $sorty): static
-    {
-        if (!$this->sorties->contains($sorty)) {
-            $this->sorties->add($sorty);
-            $sorty->addParticipant($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSorty(Sortie $sorty): static
-    {
-        if ($this->sorties->removeElement($sorty)) {
-            $sorty->removeParticipant($this);
-        }
 
         return $this;
     }
