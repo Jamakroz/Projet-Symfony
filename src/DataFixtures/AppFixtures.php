@@ -16,7 +16,12 @@ class AppFixtures extends Fixture
         $site->setNom("Site1");
         $manager->persist($site);
 
+        $
+
+
 
         $manager->flush();
+
+
     }
 }
