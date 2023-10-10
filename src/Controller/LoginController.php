@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
+use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,10 +32,10 @@ class LoginController extends AbstractController
         throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
 
-    #[Route('/registration', name: 'app_registration')]
+    #[Route('/register', name: 'app_registration')]
     public function register(UserPasswordHasherInterface $passwordHasher,Request $request, EntityManagerInterface $entityManager): Response
     {
-        $user = new User();
+        $user = new Participant();
 
         $form = $this->createForm(RegistrationFormType::class,$user);
         $form->handleRequest($request);
@@ -45,12 +47,13 @@ class LoginController extends AbstractController
                 "L'utilisateur a bien été ajouté."
             );
             $user->setPassword($passwordHasher->hashPassword($user, $form->get('password')->getData()));
-
+            $user->setActif(true);
+            $user->setAdministrateur(false);
             $entityManager->persist($user);
             $entityManager->flush();
-            return $this->redirectToRoute('app_main');
+            return $this->redirectToRoute('app_home');
         }
-        return $this->render('registration/index.html.twig', [
+        return $this->render('registration/register.html.twig', [
             'form' => $form,
         ]);
     }
