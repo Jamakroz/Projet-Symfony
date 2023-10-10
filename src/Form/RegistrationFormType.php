@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Participant;
+use App\Entity\Site;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -38,6 +40,13 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            ->add('site', EntityType::class,[
+                'class'=>Site::class,
+                'choice_label'=> 'nom',
+                'attr'=>[
+                    'class'=>'btn btn-secondary dropdown-toggle'
+                ]
             ])
         ;
     }
