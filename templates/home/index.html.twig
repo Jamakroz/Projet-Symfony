@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for sortie in sorties %}
+        {% for sortie in sortieList %}
             <tr>
                 <td>{{ sortie.nom }}</td>
                 <td>{{ sortie.date|date('d/m/Y H:i') }}</td>

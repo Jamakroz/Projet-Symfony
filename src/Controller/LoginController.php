@@ -32,7 +32,7 @@ class LoginController extends AbstractController
         throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
 
-    #[Route('/register', name: 'app_registration')]
+    #[Route('/register', name: 'app_register')]
     public function register(UserPasswordHasherInterface $passwordHasher,Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new Participant();
