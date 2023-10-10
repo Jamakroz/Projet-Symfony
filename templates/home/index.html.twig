@@ -1,4 +1,3 @@
-<!-- templates/home/index.html.twig -->
 {% extends 'base.html.twig' %}
 
 {% block title %}Liste des sorties{% endblock %}
@@ -10,7 +9,6 @@
         <tr>
             <th>Nom</th>
             <th>Date</th>
-            <!-- Add other table headers as needed -->
         </tr>
         </thead>
         <tbody>
@@ -18,7 +16,6 @@
             <tr>
                 <td>{{ sortie.nom }}</td>
                 <td>{{ sortie.date|date('d/m/Y H:i') }}</td>
-                <!-- Add other outing data as needed -->
             </tr>
         {% endfor %}
         </tbody>
