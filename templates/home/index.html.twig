@@ -1,0 +1,26 @@
+<!-- templates/home/index.html.twig -->
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des sorties{% endblock %}
+
+{% block body %}
+    <h1>Liste des sorties</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Date</th>
+            <!-- Add other table headers as needed -->
+        </tr>
+        </thead>
+        <tbody>
+        {% for sortie in sorties %}
+            <tr>
+                <td>{{ sortie.nom }}</td>
+                <td>{{ sortie.date|date('d/m/Y H:i') }}</td>
+                <!-- Add other outing data as needed -->
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
