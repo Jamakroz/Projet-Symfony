@@ -44,7 +44,7 @@ class Sortie
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Site $Site = null;
+    private ?Site $site = null;
 
     #[ORM\ManyToOne(inversedBy: 'sortiesOrganisee')]
     #[ORM\JoinColumn(nullable: false)]
@@ -169,12 +169,12 @@ class Sortie
 
     public function getSite(): ?Site
     {
-        return $this->Site;
+        return $this->site;
     }
 
-    public function setSite(?Site $Site): static
+    public function setSite(?Site $site): static
     {
-        $this->Site = $Site;
+        $this->site = $site;
 
         return $this;
     }
