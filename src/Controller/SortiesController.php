@@ -41,18 +41,19 @@ class SortiesController extends AbstractController
         //TODO: faire en sorte que la photo soit un url
         //TODO: ajouter photo de sortie
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!$sortie->getId()) {
+           // dd($sortie);
+            if ($sortie->getId() != null) {
                 $sortie
-                    ->setNom($form->get('nom')->getData())
-                    ->setDateHeureDebut($form->get('dateHeureDebut')->getData())
-                    ->setDuree($form->get('duree')->getData())
-                    ->setDateLimiteInscription($form->get('dateLimiteInscription')->getData())
-                    ->setNbInscriptionsMax($form->get('nbInscriptionsMax')->getData())
-                    ->setInfosSortie($form->get('infosSortie')->getData())
+                    //->setNom($form->get('nom')->getData())
+                    //->setDateHeureDebut($form->get('dateHeureDebut')->getData())
+                    //->setDuree($form->get('duree')->getData())
+                    //->setDateLimiteInscription($form->get('dateLimiteInscription')->getData())
+                    //->setNbInscriptionsMax($form->get('nbInscriptionsMax')->getData())
+                    //->setInfosSortie($form->get('infosSortie')->getData())
                     //TODO: ETAT auto géré dans le back, PAS DE MODIF MANUEL
                     ->setEtat($form->get('etat')->getData())
-                    ->setLieu($form->get('lieu')->getData())
-                    ->setSite($form->get('Site')->getData())
+                    //->setLieu($form->get('lieu')->getData())
+                    //->setSite($form->get('Site')->getData())
                     //TODO: ORGANISATEUR == l'id de l'utilisateur connecté lors de la création
                     //TODO: pouvoir modif ORGANISATEUR si utilisateur connecté == admin
                     ->setOrganisateur($form->get('organisateur')->getData());

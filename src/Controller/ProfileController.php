@@ -25,7 +25,10 @@ class ProfileController extends AbstractController
             $newMail = $form->get('mail')->getData();
             if($passwordHasher->isPasswordValid($user,$oldPassword))
             {
-                $participantRepository->upgradePassword($user,$passwordHasher->hashPassword($user,$newPassword));
+                if($newPassword!= null)
+                {
+                    $participantRepository->upgradePassword($user,$passwordHasher->hashPassword($user,$newPassword));
+                }
                 $participantRepository->updateUserEmail($user,$newMail);
             }
             // update the database

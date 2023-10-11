@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Site;
 use App\Entity\Sortie;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,8 +25,14 @@ class SortieType extends AbstractType
             //TODO: retirer ETAT quand sera gérer dans le back
             ->add('etat')
             ->add('lieu')
-            ->add('Site')
-            ->add('organisateur')
+            ->add('site', EntityType::class,[
+                'class'=>Site::class,
+                'choice_label'=> 'nom',
+                'attr'=>[
+                    'class'=>'btn btn-secondary dropdown-toggle'
+                ]
+            ])
+//            ->add('organisateur')
         ;
     }
 
