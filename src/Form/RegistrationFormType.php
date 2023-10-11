@@ -45,7 +45,7 @@ class RegistrationFormType extends AbstractType
                 'class'=>Site::class,
                 'choice_label'=> 'nom',
                 'attr'=>[
-                    'class'=>'btn btn-secondary dropdown-toggle'
+                    'class'=>'btn btn-dark dropdown-toggle'
                 ]
             ])
         ;

@@ -10,13 +10,13 @@
         <form action="{{ path('app_login') }}" method="post">
             <!-- Email input -->
             <div class="form-outline mb-4">
-                <label class="form-label" for="username">Email address</label>
+                <label class="form-label" for="username">Adresse mails</label>
                 <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control">
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-4">
-                <label class="form-label" for="password">Password</label>
+                <label class="form-label" for="password">Mots de passe</label>
                 <input class="form-control"  type="password" id="password" name="_password">
             </div>
 
@@ -26,7 +26,7 @@
                     <!-- Checkbox -->
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="rememberme" name="_remember_me" checked >
-                        <label class="form-check-label" for="rememberme"> Remember me </label>
+                        <label class="form-check-label" for="rememberme"> Se souvenir de moi </label>
                     </div>
                 </div>
                 {#            <div class="col">#}
@@ -36,10 +36,10 @@
             </div>
 
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+            <button type="submit" class="btn btn-dark btn-block mb-4"> S'inscrire</button>
             <!-- Register buttons -->
             <div class="text-center">
-                <p>Not a member? <a href="{{ path('app_register') }}">Register</a></p>
+                <p>Vous n'êtes pas inscrit ?<a href="{{ path('app_register') }}" > Créer</a></p>
             </div>
         </form>
     </section>
