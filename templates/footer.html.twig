@@ -1,38 +1,15 @@
-<style>
-    /* Style CSS pour le footer */
-    footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-</style>
 
-<div class="container my-5">
 
-    <footer class="text-center text-lg-start"  style="background-color: #D9D9D9;">
-        <div class="container d-flex justify-content-center py-5">
-            <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #63E8A0;">
-                <i class="fab fa-facebook-f"></i>
-            </button>
-            <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #63E8A0;">
-                <i class="fab fa-youtube"></i>
-            </button>
-            <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #63E8A0;">
-                <i class="fab fa-instagram"></i>
-            </button>
-            <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #63E8A0;">
-                <i class="bi bi-0-circle"></i>
-            </button>
-        </div>
+{% block stylesheets %}
+    {{ encore_entry_link_tags('footer') }}
+{% endblock %}
 
-        <!-- Copyright -->
-        <div class="text-center text-white p-3" style="background-color: #D9D9D9;">
-            © 2020 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">Sortir.com</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
+<footer class="page-footer font-small blue">
 
-</div>
-<!-- End of .container -->
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a class="link" href="/"> Sortir.com</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
