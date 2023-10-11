@@ -29,10 +29,24 @@ class ParticipantRepository extends ServiceEntityRepository implements PasswordU
         if (!$user instanceof Participant) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         }
-
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+    public function updateUserEmail(Participant $user, string $newEmail): bool {
+
+        // Check if new email is already used by another user
+        $existingUser = $this->findOneBy(['mail' => $newEmail]);
+        if ($existingUser) {
+            return false;
+        }
+
+        // Update email and persist changes
+        $user->setMail($newEmail);
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
+        return true;
     }
 
 //    /**
