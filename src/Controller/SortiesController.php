@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\ParticipantRepository;
@@ -67,5 +66,19 @@ class SortiesController extends AbstractController
             'form' => $form,
             'sortie' => $sortie
         ]);
+    }
+
+    #[Route('/annuler/{id}', name: '_annuler')]
+    public function annuler(EntityManagerInterface $entityManager, Sortie $sortie): Response
+    {
+        $entityManager->remove($sortie);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'La sortie à bien été annuler !'
+        );
+
+        return $this->redirectToRoute('app_home');
     }
 }
