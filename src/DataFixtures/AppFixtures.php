@@ -2,20 +2,28 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Participant;
 use App\Entity\Site;
+use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-
+use Faker\Factory;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private UserPasswordHasherInterface $userPasswordHasher;
+
+    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
+    {
+        $this->userPasswordHasher = $userPasswordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
 
-        $faker = Faker\Factory::create();
+        $faker = Factory::create();
 
 
         $site = new Site();
@@ -23,27 +31,20 @@ class AppFixtures extends Fixture
         $manager->persist($site);
 
 
-
         for ($i = 0; $i < 10; $i++) {
             $participant = new Participant();
             $participant->setNom($faker->lastName);
             $participant->setPrenom($faker->firstName);
+            $participant->setPseudo($faker->userName);
+            $participant->setPassword($this->userPasswordHasher->hashPassword($participant, "123$i"));
             $participant->setTelephone($faker->phoneNumber);
             $participant->setMail($faker->email);
             $participant->setAdministrateur($faker->boolean);
             $participant->setActif($faker->boolean);
+            $participant->setSite($site);
 
             $manager->persist($participant);
         }
-
-
-
-        for($i = 0; $i < 10; $i++){
-            $etat = new Etat();
-            $etat->setLibelle($faker->libelle);
-            $manager->persist($etat);
-        }
-
 
 
         for ($i = 0; $i < 10; $i++) {
@@ -66,10 +67,7 @@ class AppFixtures extends Fixture
             }
         }
 
-
-
         $manager->flush();
-
 
     }
 }
