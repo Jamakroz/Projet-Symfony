@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\Etat;
 use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -55,6 +56,9 @@ class Sortie
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photoSortie = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private $etat;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -74,6 +78,18 @@ class Sortie
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getEtat(): Etat
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): static
+    {
+        $this->etat = $etat;
 
         return $this;
     }

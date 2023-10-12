@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,11 +21,13 @@ class SortieType extends AbstractType
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
-            ->add('motifAnnulation')
-            ->add('photoSortie')
-            //TODO: retirer ETAT quand sera gérer dans le back
-            ->add('etat')
-            ->add('lieu')
+            ->add('lieu', EntityType::class,[
+                'class'=>Lieu::class,
+                'choice_label'=> 'nom',
+                'attr'=>[
+                    'class'=>'btn btn-secondary dropdown-toggle'
+                ]
+            ])
             ->add('site', EntityType::class,[
                 'class'=>Site::class,
                 'choice_label'=> 'nom',
@@ -32,7 +35,6 @@ class SortieType extends AbstractType
                     'class'=>'btn btn-secondary dropdown-toggle'
                 ]
             ])
-//            ->add('organisateur')
         ;
     }
 
