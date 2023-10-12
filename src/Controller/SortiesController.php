@@ -87,10 +87,9 @@ class SortiesController extends AbstractController
     }
 
     #[Route('/inscription/{id}', name: '_inscription')]
-    public function inscription(EntityManagerInterface $entityManager, Sortie $sortie): Response
+    public function inscription(EntityManagerInterface $entityManager, ): Response
     {
-        $entityManager->remove($sortie);
-        $entityManager->flush();
+        $sortie =
 
         $this->addFlash(
             'success',

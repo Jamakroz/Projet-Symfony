@@ -53,10 +53,13 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json')]
     private array $roles = [];
 
+    #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participantsInscrits')]
+    private Collection $sorties;
+
     public function __construct()
     {
         $this->sortiesOrganisee = new ArrayCollection();
-        $this->inscriptions = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -226,5 +229,32 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return (string) $this->mail;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addSorty(Sortie $sorty): static
+    {
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties->add($sorty);
+            $sorty->addParticipantsInscrit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sortie $sorty): static
+    {
+        if ($this->sorties->removeElement($sorty)) {
+            $sorty->removeParticipantsInscrit($this);
+        }
+
+        return $this;
     }
 }

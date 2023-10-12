@@ -56,10 +56,12 @@ class Sortie
     #[ORM\Column(length: 255, nullable: true)]
     private $etat;
 
+    #[ORM\ManyToMany(targetEntity: Participant::class, inversedBy: 'sorties')]
+    private Collection $participantsInscrits;
+
     public function __construct()
     {
-        $this->participants = new ArrayCollection();
-        $this->inscriptions = new ArrayCollection();
+        $this->participantsInscrits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -207,6 +209,30 @@ class Sortie
     public function setPhotoSortie(?string $photoSortie): static
     {
         $this->photoSortie = $photoSortie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Participant>
+     */
+    public function getParticipantsInscrits(): Collection
+    {
+        return $this->participantsInscrits;
+    }
+
+    public function addParticipantsInscrit(Participant $participantsInscrit): static
+    {
+        if (!$this->participantsInscrits->contains($participantsInscrit)) {
+            $this->participantsInscrits->add($participantsInscrit);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipantsInscrit(Participant $participantsInscrit): static
+    {
+        $this->participantsInscrits->removeElement($participantsInscrit);
 
         return $this;
     }
