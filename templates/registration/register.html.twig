@@ -1,61 +1,73 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('register') }}
+{% endblock %}
 
 {% block body %}
-    <div class="container p-2">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        Inscription
-                    </div>
-                    <div class="card-body">
-                        {{ form_start(form) }}
-                        <div class="form-group">
-                            {{ form_label(form.prenom) }}
-                            {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
-                            <small class="form-text text-muted">{{ form_help(form.prenom) }}</small>
-                            {{ form_errors(form.prenom) }}
+   <section class="h-100 h-custom" style="background-color: #D9D9D9;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-10 col-xl-8"> <!-- Modifié les classes de colonne ici -->
+                    <div class="card rounded-3">
+                        <div class="card-body p-4 p-md-5">
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Inscription</h3>
+                            {{ form_start(form) }}
+                            <form class="px-md-2">
+                                <div class="form-outline mb-4">
+                                    {{ form_label(form.prenom) }}
+                                    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                                    <label class="form-label" for="form3Example1q">{{ form_help(form.prenom) }}</label>
+                                    {{ form_errors(form.prenom) }}
+                                </div>
+                                <div class="form-outline mb-4">
+                                    {{ form_label(form.nom) }}
+                                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                    <label class="form-label" for="form3Example1q">{{ form_help(form.nom) }}</label>
+                                    {{ form_errors(form.nom) }}
+                                </div>
+                                <div class="form-outline mb-4">
+                                    {{ form_label(form.telephone) }}
+                                    {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+                                    <label class="form-label" for="form3Example1q">{{ form_help(form.telephone) }}</label>
+                                    {{ form_errors(form.telephone) }}
+                                </div>
+                                <div class="form-outline mb-4">
+                                    {{ form_label(form.mail) }}
+                                    {{ form_widget(form.mail, {'attr': {'class': 'form-control'}}) }}
+                                    <label class="form-label" for="form3Example1q">{{ form_help(form.telephone) }}</label>
+                                    {{ form_errors(form.mail) }}
+                                </div>
+                                <div class="form-outline mb-4">
+                                    {{ form_label(form.pseudo) }}
+                                    {{ form_widget(form.pseudo, {'attr': {'class': 'form-control'}}) }}
+                                    <label class="form-label" for="form3Example1q">{{ form_help(form.pseudo) }}</label>
+                                    {{ form_errors(form.pseudo) }}
+                                </div>
+                                <div class="form-outline mb-4">
+                                    {{ form_label(form.password) }}
+                                    {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+                                    <label class="form-label" for="form3Example1q">{{ form_help(form.password) }}</label>
+                                    {{ form_errors(form.password) }}
+                                </div>
+                                <div class="form-outline mb-4">
+                                    {{ form_label(form.site) }}
+                                    {{ form_widget(form.site, {'attr': {'class': 'form-control'}}) }}
+                                    <label class="form-label" for="form3Example1q">{{ form_help(form.password) }}</label>
+                                    {{ form_errors(form.site) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form_widget(form._token, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <button type="submit" class="btn btn-success">Ajouter</button>
+                        </form>
+                            {{ form_end(form)}}
                         </div>
-                        <div class="form-group">
-                            {{ form_label(form.nom) }}
-                            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-                            <small class="form-text text-muted">{{ form_help(form.nom) }}</small>
-                            {{ form_errors(form.nom) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.telephone) }}
-                            {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
-                            <small class="form-text text-muted">{{ form_help(form.telephone) }}</small>
-                            {{ form_errors(form.telephone) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.mail) }}
-                            {{ form_widget(form.mail, {'attr': {'class': 'form-control'}}) }}
-                            <small class="form-text text-muted">{{ form_help(form.mail) }}</small>
-                            {{ form_errors(form.mail) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.pseudo) }}
-                            {{ form_widget(form.pseudo, {'attr': {'class': 'form-control'}}) }}
-                            <small class="form-text text-muted">{{ form_help(form.pseudo) }}</small>
-                            {{ form_errors(form.pseudo) }}
-                        </div>
-                        <div class="form-group">
-{#                            {{ form_label(form.password) }}#}
-                            {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
-                            <small class="form-text text-muted">{{ form_help(form.password) }}</small>
-                            {{ form_errors(form.password) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_widget(form._token, {'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <button type="submit" class="btn btn-success">Ajouter</button>
-                        {{ form_end(form)}}
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 {% endblock %}
