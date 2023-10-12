@@ -38,6 +38,7 @@ class ProfileController extends AbstractController
         }
         return $this->render('profile/index.html.twig', [
             'form'=>$form,
+            'mail'=>$this->getUser()->getUserIdentifier(),
         ]);
     }
 }
