@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Enum\Etat;
 use App\Form\SortieType;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
@@ -51,13 +52,17 @@ class SortiesController extends AbstractController
                     //->setNbInscriptionsMax($form->get('nbInscriptionsMax')->getData())
                     //->setInfosSortie($form->get('infosSortie')->getData())
                     //TODO: ETAT auto géré dans le back, PAS DE MODIF MANUEL
-                    ->setEtat($form->get('etat')->getData())
+                    ->setEtat(Etat::CREATION());
                     //->setLieu($form->get('lieu')->getData())
                     //->setSite($form->get('Site')->getData())
                     //TODO: ORGANISATEUR == l'id de l'utilisateur connecté lors de la création
                     //TODO: pouvoir modif ORGANISATEUR si utilisateur connecté == admin
-                    ->setOrganisateur($form->get('organisateur')->getData());
+                    //->setOrganisateur($this->getUser());
+                dd($sortie);
             }
+            $sortie->setOrganisateur($this->getUser());
+            $sortie->setEtat(Etat::CREATION());
+            $entityManager->persist($sortie);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_home');

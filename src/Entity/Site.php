@@ -18,7 +18,7 @@ class Site
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
-    #[ORM\OneToMany(mappedBy: 'Site', targetEntity: Sortie::class)]
+    #[ORM\OneToMany(mappedBy: 'site', targetEntity: Sortie::class)]
     private Collection $sorties;
 
     #[ORM\OneToMany(mappedBy: 'site', targetEntity: Participant::class)]
