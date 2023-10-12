@@ -1,0 +1,20 @@
+@import "~bootstrap/scss/bootstrap";
+
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+h1 {
+  color: dodgerblue;
+
+}
+.btn-se-connecter {
+  margin-bottom: 10px; /* Ajoute une marge en bas du bouton "Se connecter" */
+}
+
+.btn-mots-de-passe-oublie {
+  /* Styles spécifiques pour le bouton "Mots de passe oublié" */
+}
