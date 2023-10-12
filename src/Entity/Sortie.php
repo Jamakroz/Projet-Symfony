@@ -83,7 +83,7 @@ class Sortie
 
     public function getEtat(): Etat
     {
-        return $this->etat;
+        return new Etat($this->etat);
     }
 
     public function setEtat(string $etat): static

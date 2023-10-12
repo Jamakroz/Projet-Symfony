@@ -19,8 +19,9 @@ class SortiesController extends AbstractController
     #[Route('/', name: '_home')]
     public function index(SortieRepository $sortieRepository): Response
     {
+        $etatConstants = (new \ReflectionClass(Etat::class))->getConstants();
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'Etat' => $etatConstants,
             'sortieList' => $sortieRepository->findAll(),
         ]);
     }
@@ -87,14 +88,29 @@ class SortiesController extends AbstractController
     }
 
     #[Route('/inscription/{id}', name: '_inscription')]
-    public function inscription(EntityManagerInterface $entityManager, ): Response
+    public function inscription(EntityManagerInterface $entityManager, SortieRepository $sortieRepository, ParticipantRepository $participantRepository,int $id = null ): Response
     {
-        $sortie =
+        if($id != null)
+        {
+            $sortie = $sortieRepository->find($id);
+            if($sortie->getNbInscriptionsMax() > count($sortie->getParticipantsInscrits()) && $sortie->getDateLimiteInscription() >= date("Y-m-d"))
+            {
+                $sortie->addParticipantsInscrit($participantRepository->findOneBy(['id'=>$this->getUser()]));
+            }
 
-        $this->addFlash(
-            'success',
-            'Vous êtes bien inscrit à la sortie !'
-        );
+            if($sortie->getNbInscriptionsMax() == count($sortie->getParticipantsInscrits()) || $sortie->getDateLimiteInscription() < date("Y-m-d"))
+            {
+                $sortie->setEtat(Etat::CLOSED());
+            }
+
+            $this->addFlash(
+                'success',
+                'Vous êtes bien inscrit à la sortie !'
+            );
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+        }
+
 
         return $this->redirectToRoute('app_home');
     }
