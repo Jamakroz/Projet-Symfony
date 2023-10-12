@@ -1,15 +1,87 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LoginController!{% endblock %}
+{% block title %}Edit Profile{% endblock %}
 
 {% block body %}
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-{{ form_start(form) }}
+    <div class="container bootstrap snippets bootdey">
+        <h1 class="text-primary">Edit Profile</h1>
+        <hr>
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                    <h6>Upload a different photo...</h6>
 
-    <button type="submit" class="btn btn-success">Modifier</button>
-    {{ form_end(form) }}
+                    {{ form_widget(form.photo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <!-- edit form column -->
+            <div class="col-md-9 personal-info">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <h3>Personal info</h3>
+
+                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+                <div class="form-group">
+                    {{ form_label(form.pseudo, 'First name:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
+                    <div class="col-lg-8">
+                        {{ form_widget(form.pseudo, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.prenom, 'First name:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
+                    <div class="col-lg-8">
+                        {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.nom, 'Last name:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
+                    <div class="col-lg-8">
+                        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.telephone, 'Company:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
+                    <div class="col-lg-8">
+                        {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.mail, 'Email:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
+                    <div class="col-lg-8">
+                        {{ form_widget(form.mail, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.exPassword, 'Old Password:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
+                    <div class="col-lg-8">
+                        {{ form_widget(form.exPassword, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.newPassword, 'New Password:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
+                    <div class="col-lg-8">
+                        {{ form_widget(form.newPassword, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.site, 'Site:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
+                    <div class="col-lg-8">
+                        {{ form_widget(form.site, {'attr': {'class': 'ui-select form-control'}}) }}
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

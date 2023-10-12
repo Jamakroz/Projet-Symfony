@@ -25,10 +25,9 @@ class ProfileType extends AbstractType
             ->add('nom')
             ->add('telephone')
             ->add('mail', TextType::class,[
-           //     'mapped'=>false,
-                'required'=>false,
+                'required'=>true,
             ])
-            ->add('ex-password', PasswordType::class,[
+            ->add('exPassword', PasswordType::class,[
                 'mapped'=>false,
                 'label'=>'Ancien mot de passe',
                 'required'=>true,
