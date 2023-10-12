@@ -11,3 +11,30 @@ body {
 .form-group .form-control {
     background-color: #F8F9FA;
 }
+
+/* Style pour le formulaire de gestion de profil */
+.profile-form {
+    max-width: 400px; /* Largeur maximale du formulaire */
+    margin: 0 auto; /* Centrer le formulaire horizontalement */
+
+    .form-group {
+        margin-bottom: 20px; /* Espacement entre les champs */
+    }
+
+    .btn-success {
+        display: block;
+        margin: 0 auto; /* Centrer le bouton de soumission */
+    }
+}
+
+/* Style pour les alertes flash (succès et erreur) */
+.alert {
+    margin-top: 20px; /* Espacement entre les alertes et le formulaire */
+}
+
+/* Optionnel : Style pour le champ de téléchargement de photo */
+.file-upload {
+    .custom-file-label::after {
+        content: "Parcourir";
+    }
+}

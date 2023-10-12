@@ -1,48 +1,5 @@
-@import "~bootstrap/scss/bootstrap";
-
-/* Ajoutez ici vos styles personnalisés */
-
-.registration-form {
-  margin: 20px; /* Marge autour du formulaire */
-  padding: 20px; /* Rembourrage à l'intérieur du formulaire */
-  border: 1px solid #ccc; /* Bordure du formulaire */
-  border-radius: 10px; /* Coins arrondis du formulaire */
-}
-
-/* Styles pour les champs de formulaire */
-.registration-form input[type="text"],
-.registration-form input[type="password"] {
-  margin-bottom: 10px; /* Espacement entre les champs de texte */
-  padding: 10px; /* Rembourrage à l'intérieur des champs de texte */
-  width: 100%; /* Largeur du champ de texte à 100% */
-  border-radius: 5px; /* Coins arrondis des champs de texte */
-  border: 1px solid #ccc; /* Bordure des champs de texte */
-}
-
-/* Styles pour les boutons */
-.registration-form button[type="submit"] {
-  margin-top: 15px; /* Espacement entre le champ de texte et le bouton */
-  padding: 10px 20px; /* Rembourrage à l'intérieur du bouton */
-  border: none; /* Pas de bordure */
-  border-radius: 5px; /* Coins arrondis du bouton */
-  background-color: #007bff; /* Couleur de fond du bouton */
-  color: #fff; /* Couleur du texte du bouton */
-  cursor: pointer;
-}
-
-/* Styles pour les messages d'erreur */
-.registration-form .error-message {
-  color: #ff0000; /* Couleur du texte en rouge */
-  margin-top: 5px; /* Espacement du haut du message d'erreur */
-}
-
-/* Styles pour l'étiquette des champs */
-.registration-form label {
-  font-weight: bold; /* Texte en gras */
-}
-
-/* Styles pour le bouton dropdown */
-.registration-form .btn-dark.dropdown-toggle {
-  background-color: #343a40; /* Couleur de fond du bouton dropdown */
-  border-color: #343a40; /* Couleur de la bordure du bouton dropdown */
+@media (min-width: 1025px) {
+  .h-custom {
+    height: 100vh !important;
+  }
 }
