@@ -47,9 +47,6 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Participant $organisateur = null;
 
-    #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Inscription::class)]
-    private Collection $inscriptions;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $motifAnnulation = null;
 
@@ -190,37 +187,6 @@ class Sortie
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Inscription>
-     */
-    public function getInscriptions(): Collection
-    {
-        return $this->inscriptions;
-    }
-
-    public function addInscription(Inscription $inscription): static
-    {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions->add($inscription);
-            $inscription->setSortie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInscription(Inscription $inscription): static
-    {
-        if ($this->inscriptions->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
-            if ($inscription->getSortie() === $this) {
-                $inscription->setSortie(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getMotifAnnulation(): ?string
     {
         return $this->motifAnnulation;

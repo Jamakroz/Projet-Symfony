@@ -42,7 +42,6 @@ class SortiesController extends AbstractController
         //TODO: faire en sorte que la photo soit un url
         //TODO: ajouter photo de sortie
         if ($form->isSubmitted() && $form->isValid()) {
-           // dd($sortie);
             if ($sortie->getId() != null) {
                 $sortie
                     //->setNom($form->get('nom')->getData())
@@ -58,7 +57,6 @@ class SortiesController extends AbstractController
                     //TODO: ORGANISATEUR == l'id de l'utilisateur connecté lors de la création
                     //TODO: pouvoir modif ORGANISATEUR si utilisateur connecté == admin
                     //->setOrganisateur($this->getUser());
-                dd($sortie);
             }
             $sortie->setOrganisateur($this->getUser());
             $sortie->setEtat(Etat::CREATION());
@@ -75,14 +73,28 @@ class SortiesController extends AbstractController
     }
 
     #[Route('/annuler/{id}', name: '_annuler')]
-    public function annuler(EntityManagerInterface $entityManager, Sortie $sortie): Response
+    public function annuler(EntityManagerInterface $entityManager, SortieRepository $sortieRepository, int $id = null): Response
+    {
+        $entityManager->remove($sortieRepository->find($id));
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'La sortie à bien été annuler !'
+        );
+
+        return $this->redirectToRoute('app_home');
+    }
+
+    #[Route('/inscription/{id}', name: '_inscription')]
+    public function inscription(EntityManagerInterface $entityManager, Sortie $sortie): Response
     {
         $entityManager->remove($sortie);
         $entityManager->flush();
 
         $this->addFlash(
             'success',
-            'La sortie à bien été annuler !'
+            'Vous êtes bien inscrit à la sortie !'
         );
 
         return $this->redirectToRoute('app_home');
