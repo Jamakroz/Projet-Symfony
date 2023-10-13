@@ -4,6 +4,28 @@
 {% block title %}{% if sortie.id is not null %}Modifier Sortie{% else %}Ajouter Sortie{% endif %}{% endblock %}
 
 {% block body %}
+    <script>
+        $(document).ready(function() {
+            $('#city-select').change(function() {
+                var cityId = $(this).val();
+
+                $.ajax({
+                    url: "{{ path('app_get_lieu') }}",
+                    type: "GET",
+                    dataType: "json",
+                    data: { 'cityId': cityId },
+                    async: true,
+                    success: function (data, status, xhr) {
+                        var selectbox = $('#location-select');
+                        selectbox.find('option').remove();
+                        $.each(data, function (i, d) {
+                            $('<option>').val(d.id).text(d.name).appendTo(selectbox);
+                        });
+                    }
+                });
+            });
+        });
+    </script>
     <div class="container mt-4">
         <h1>{% if sortie.id is not null %}Modifier Sortie{% else %}Ajouter Sortie{% endif %}</h1>
         <div class="row">
@@ -38,6 +60,11 @@
                 <div class="form-group">
                     {{ form_label(form.infosSortie, 'Informations sur la Sortie') }}
                     {{ form_widget(form.infosSortie, {'attr': {'class': 'form-control', 'placeholder': 'Informations sur la Sortie'}}) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.ville, 'Ville') }}
+                    {{ form_widget(form.ville, {'attr': {'class': 'form-control', 'placeholder': 'Ville', 'id' : 'city-select'}}) }}
                 </div>
 
                <div class="form-group">

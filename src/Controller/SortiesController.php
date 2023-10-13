@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Enum\Etat;
 use App\Form\SortieType;
+use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -97,6 +99,13 @@ class SortiesController extends AbstractController
             {
                 $sortie->addParticipantsInscrit($participantRepository->findOneBy(['id'=>$this->getUser()]));
             }
+            else{
+                $this->addFlash(
+                    'error',
+                    "Il n'y a plus de place disponible ou la date limite d'inscription est dépassée."
+                );
+                return $this->redirectToRoute('app_home');
+            }
 
             if($sortie->getNbInscriptionsMax() == count($sortie->getParticipantsInscrits()) || $sortie->getDateLimiteInscription() < date("Y-m-d"))
             {
@@ -113,5 +122,23 @@ class SortiesController extends AbstractController
 
 
         return $this->redirectToRoute('app_home');
+    }
+
+    #[Route('/get-lieu', name: '_get_lieu')]
+    public function getLieu(Request $request, LieuRepository $repository)
+    {
+        $cityId = $request->query->get('cityId');
+        $locations = $repository->findBy(['ville' => $cityId]);
+
+        $locationsArray = [];
+
+        foreach ($locations as $location) {
+            $locationsArray[] = [
+                'id' => $location->getId(),
+                'name' => $location->getNom(),
+            ];
+        }
+
+        return new JsonResponse($locationsArray);
     }
 }
