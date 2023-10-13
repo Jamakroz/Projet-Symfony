@@ -4,14 +4,14 @@
 
 {% block body %}
     <div class="container bootstrap snippets bootdey">
-        <h1 class="text-primary">Edit Profile</h1>
+        <h1 class="text-primary">Profile</h1>
         <hr>
         <div class="row">
             <!-- left column -->
             <div class="col-md-3">
                 <div class="text-center">
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="avatar img-circle img-thumbnail" alt="avatar">
-                    <h6>Modifier la photo de profil...</h6>
+                    <h6>Modifier la photo de profil</h6>
 
                     {{ form_widget(form.photo, {'attr': {'class': 'form-control'}}) }}
                 </div>
@@ -29,7 +29,7 @@
                         {{ message }}
                     </div>
                 {% endfor %}
-                <h3>Personal info</h3>
+                <h3>Information</h3>
 
                 {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
                 <div class="form-group">

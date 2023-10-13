@@ -17,7 +17,7 @@
     <body>
 
     {% set current_page = app.request.attributes.get('_route') %}
-    {% set isLoginRegisterPage = current_page in ['app_register', 'app_login'] %}
+    {% set isLoginRegisterPage = current_page in ['app_login'] %}
 
     {% if not isLoginRegisterPage %}
         {% include 'header.html.twig' %}
