@@ -16,15 +16,16 @@
     </head>
     <body>
 
-    {% set current_page = app.request.uri %}
+    {% set current_page = app.request.attributes.get('_route') %}
+    {% set isLoginRegisterPage = current_page in ['app_register', 'app_login'] %}
 
-    {% if current_page  in ['login/index.html.twig', 'registration/register.html.twig'] %}
+    {% if not isLoginRegisterPage %}
         {% include 'header.html.twig' %}
     {% endif %}
 
     {% block body %}{% endblock %}
 
-    {% if current_page  in ['login/index.html.twig', 'registration/register.html.twig'] %}
+    {% if not isLoginRegisterPage %}
         {% include 'footer.html.twig' %}
     {% endif %}
     </body>
