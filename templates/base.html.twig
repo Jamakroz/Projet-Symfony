@@ -15,9 +15,18 @@
         {% endblock %}
     </head>
     <body>
+
+    {% set current_page = app.request.uri %}
+
+    {% if current_page  in ['login/index.html.twig', 'registration/register.html.twig'] %}
         {% include 'header.html.twig' %}
-        {% block body %}{% endblock %}
+    {% endif %}
+
+    {% block body %}{% endblock %}
+
+    {% if current_page  in ['login/index.html.twig', 'registration/register.html.twig'] %}
         {% include 'footer.html.twig' %}
+    {% endif %}
     </body>
 
 </html>
