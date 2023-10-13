@@ -22,7 +22,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/register', name: 'app_admin_register')]
+    #[Route('/register', name: '_register')]
     public function register(UserPasswordHasherInterface $passwordHasher,Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new Participant();
@@ -32,17 +32,25 @@ class AdminController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-
             $user->setPassword($passwordHasher->hashPassword($user, $form->get('password')->getData()));
             $user->setActif($form->get('actif')->getData());
-            $user->setAdministrateur($form->get('administrateur')->getData());
+            if($form->get('administrateur')->getData())
+            {
+                $user->setAdministrateur(true);
+                $user->setRoles(['ROLE_ADMIN']);
+            }
+            else
+            {
+                $user->setAdministrateur(false);
+            }
+
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash(
                 'success',
                 "L'utilisateur a bien été ajouté."
             );
-            return $this->redirectToRoute('app_adminapp_admin_register');
+            return $this->redirectToRoute('app_admin_register');
         }
         return $this->render('admin/createUser.html.twig', [
             'form' => $form,
