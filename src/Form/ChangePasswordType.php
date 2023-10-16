@@ -15,10 +15,12 @@ class ChangePasswordType extends AbstractType
     {
         $builder
             ->add('oldPassword', PasswordType::class, [
+                'mapped'=>false,
                 'label' => 'Ancien Mot de Passe'
             ])
             ->add('newPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
+                'mapped'=>false,
                 'invalid_message' => 'Les champs de mot de passe doivent correspondre.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,

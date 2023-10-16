@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ChangePasswordType;
 use App\Form\ProfileType;
 use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,7 +36,6 @@ class ProfileController extends AbstractController
                 $this->addFlash('error', "Mot de passe incorrect.");
                 $errorOccurred = true;
             }
-
             if ($newPassword != null) {
                 $participantRepository->upgradePassword($user, $passwordHasher->hashPassword($user, $newPassword));
             }
@@ -45,7 +45,6 @@ class ProfileController extends AbstractController
                 $this->addFlash('error', "Email invalide.");
                 $errorOccurred = true;
             }
-
             // Si aucune erreur n'est survenue, mettez à jour la base de données
             if (!$errorOccurred) {
                 $entityManager->flush();
@@ -64,10 +63,42 @@ class ProfileController extends AbstractController
     public function profile(ParticipantRepository $participantRepository, int $id = null){
         if($id != null)
         {
-            return $this->render('home/index.html.twig', [
+            return $this->render('profile/userProfile.html.twig', [
                 'userProfile' => $participantRepository->find($id),
             ]);
         }
+        return $this->redirectToRoute('app_home');
+    }
+
+    #[Route('/ModifPassword', name: 'app_ModifPassword')]
+    public function changePassword(Request $request, ParticipantRepository $participantRepository, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager)
+    {
+        $user = $participantRepository->find($this->getUser());
+        $form = $this->createForm(ChangePasswordType::class, $user);
+        $errorOccurred = false;
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newPassword = $form->get('newPassword')->getData();
+            // Vérifier si le mot de passe actuel est valide
+            $oldPassword = $form->get('oldPassword')->getData();
+            if (!$passwordHasher->isPasswordValid($user, $oldPassword)) {
+                $this->addFlash('error', "Mot de passe incorrect.");
+                $errorOccurred = true;
+            }
+            if ($newPassword != null) {
+                $participantRepository->upgradePassword($user, $passwordHasher->hashPassword($user, $newPassword));
+            }
+            if (!$errorOccurred) {
+                $entityManager->flush();
+                $this->addFlash('success', 'Profil mis à jour');
+                return $this->redirectToRoute('app_profile');
+            }
+        }
+
+        return $this->render('login/editMotsPasse.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 }

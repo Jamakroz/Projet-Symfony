@@ -1,4 +1,4 @@
-{% extends '../base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Modification du Mots de Passe{% endblock %}
 
@@ -7,10 +7,11 @@
     <h1 class="text-primary">Gestion du Mots de Passe</h1>
     <hr>
     <div class="row">
+        {{ form_start(form) }}
         <div class="form-group">
-            {{ form_label(form.exPassword, 'Mon mot de passe:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
+            {{ form_label(form.oldPassword, 'Mon mot de passe:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
             <div class="col-lg-8">
-                {{ form_widget(form.exPassword, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.oldPassword, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
         <div class="form-group">
