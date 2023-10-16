@@ -30,7 +30,7 @@ class SortiesController extends AbstractController
 
     #[Route('/ajouter', name: '_ajouter')]
     #[Route('/modifier/{id}', name: '_modifier')]
-    public function editer(Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository, ParticipantRepository $participantRepository, int $id = null): Response
+    public function editer(Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository, LieuRepository $lieuRepository, int $id = null): Response
     {
         if ($id == null) {
             $sortie = new Sortie();
@@ -47,28 +47,21 @@ class SortiesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($sortie->getId() != null) {
                 $sortie
-                    //->setNom($form->get('nom')->getData())
-                    //->setDateHeureDebut($form->get('dateHeureDebut')->getData())
-                    //->setDuree($form->get('duree')->getData())
-                    //->setDateLimiteInscription($form->get('dateLimiteInscription')->getData())
-                    //->setNbInscriptionsMax($form->get('nbInscriptionsMax')->getData())
-                    //->setInfosSortie($form->get('infosSortie')->getData())
                     //TODO: ETAT auto géré dans le back, PAS DE MODIF MANUEL
                     ->setEtat(Etat::CREATION());
-                    //->setLieu($form->get('lieu')->getData())
-                    //->setSite($form->get('Site')->getData())
-                    //TODO: ORGANISATEUR == l'id de l'utilisateur connecté lors de la création
-                    //TODO: pouvoir modif ORGANISATEUR si utilisateur connecté == admin
-                    //->setOrganisateur($this->getUser());
             }
-            $sortie->setOrganisateur($this->getUser());
-            $sortie->setEtat(Etat::CREATION());
+            else{
+                $sortie->setOrganisateur($this->getUser());
+                $sortie->setEtat(Etat::CREATION());
+                $sortie->setSite($this->getUser()->getSite());
+                $sortie->setLieu($form->get('lieu')->getData());
+              //  dd($sortie);
+            }
             $entityManager->persist($sortie);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_home');
         }
-
         return $this->render('home/editerSortie.html.twig', [
             'form' => $form,
             'sortie' => $sortie
@@ -138,8 +131,22 @@ class SortiesController extends AbstractController
                 'name' => $location->getNom(),
             ];
         }
-
-        dd($locationsArray);
         return new JsonResponse($locationsArray);
+    }
+
+    #[Route('/desister/{id}', name: '_desister')]
+    public function desister(EntityManagerInterface $entityManager, ParticipantRepository $participantRepository,SortieRepository $sortieRepository, int $id = null): Response
+    {
+
+        $user =$participantRepository->find($this->getUser());
+        $user->removeSorty($sortieRepository->find($id));
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'Vous vous êtes bien désisté !'
+        );
+
+        return $this->redirectToRoute('app_home');
     }
 }

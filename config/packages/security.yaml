@@ -27,6 +27,7 @@ security:
             remember_me:
                 secret: '%kernel.secret%' # required
                 lifetime: 86400 # 1 day in seconds
+                path: /
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 

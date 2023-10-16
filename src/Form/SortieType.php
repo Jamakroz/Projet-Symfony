@@ -7,7 +7,11 @@ use App\Entity\Sortie;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SortieType extends AbstractType
@@ -21,11 +25,11 @@ class SortieType extends AbstractType
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
-            ->add('lieu', EntityType::class,[
-                'class'=>Lieu::class,
-                'choice_label'=> 'nom',
+            ->add('lieu', EntityType::class, [
+                'class' => Lieu::class,
+                'choice_label' => 'nom',
                 'attr'=>[
-                    'class'=>'btn btn-secondary dropdown-toggle'
+                    'class'=>'btn btn-secondary dropdown-toggle',
                 ]
             ])
             ->add('ville', EntityType::class,[
@@ -33,7 +37,7 @@ class SortieType extends AbstractType
                 'class'=>Ville::class,
                 'choice_label'=> 'nom',
                 'attr'=>[
-                    'class'=>'btn btn-secondary dropdown-toggle'
+                    'class'=>'btn btn-secondary dropdown-toggle form-control',
                 ]
             ])
         ;

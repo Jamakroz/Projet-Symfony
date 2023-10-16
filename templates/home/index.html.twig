@@ -17,10 +17,10 @@
             <tr>
                 <td>{{ sortie.nom }}</td>
                 <td>{{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</td>
-                {%  if app.user not in sortie.participantsInscrits and sortie.etat == Etat.OPEN %}
+                {%  if (app.user not in sortie.participantsInscrits) and (sortie.etat == Etat.OPEN) and ('now'|date('d/m/Y H:i') < sortie.dateLimiteInscription|date('d/m/Y H:i')) %}
                 <td><a href="{{ path('app_inscription',{id:sortie.id}) }}">S'inscrire</a> </td>
-                {% else %}
-                    <td><a href="{{ path('app_inscription',{id:sortie.id}) }}">Se désister</a> </td>
+                {% elseif 'now'|date('d/m/Y H:i') < sortie.dateLimiteInscription|date('d/m/Y H:i') %}
+                    <td><a href="{{ path('app_desister',{id:sortie.id}) }}">Se désister</a> </td>
                 {% endif %}
             </tr>
         {% endfor %}
