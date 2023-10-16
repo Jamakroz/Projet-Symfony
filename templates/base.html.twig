@@ -15,7 +15,6 @@
         {% endblock %}
     </head>
     <body>
-
     {% set current_page = app.request.attributes.get('_route') %}
     {% set isLoginRegisterPage = current_page in ['app_login'] %}
 
