@@ -3,8 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Lieu;
-use App\Entity\Site;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,8 +28,9 @@ class SortieType extends AbstractType
                     'class'=>'btn btn-secondary dropdown-toggle'
                 ]
             ])
-            ->add('site', EntityType::class,[
-                'class'=>Site::class,
+            ->add('ville', EntityType::class,[
+                'mapped'=>false,
+                'class'=>Ville::class,
                 'choice_label'=> 'nom',
                 'attr'=>[
                     'class'=>'btn btn-secondary dropdown-toggle'

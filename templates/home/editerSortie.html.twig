@@ -1,19 +1,20 @@
 {# templates/home/editerSortie.html.twig #}
 {% extends 'base.html.twig' %}
 
+
 {% block title %}{% if sortie.id is not null %}Modifier Sortie{% else %}Ajouter Sortie{% endif %}{% endblock %}
 
 {% block body %}
     <script>
-        $(document).ready(function() {
-            $('#city-select').change(function() {
+        $(document).Function(function () {
+            $('#city-select').change(function () {
                 var cityId = $(this).val();
 
                 $.ajax({
                     url: "{{ path('app_get_lieu') }}",
                     type: "GET",
                     dataType: "json",
-                    data: { 'cityId': cityId },
+                    data: {'cityId': cityId},
                     async: true,
                     success: function (data, status, xhr) {
                         var selectbox = $('#location-select');
@@ -64,17 +65,12 @@
 
                 <div class="form-group">
                     {{ form_label(form.ville, 'Ville') }}
-                    {{ form_widget(form.ville, {'attr': {'class': 'form-control', 'placeholder': 'Ville', 'id' : 'city-select'}}) }}
-                </div>
-
-               <div class="form-group">
-                    {{ form_label(form.lieu, 'Lieu') }}
-                    {{ form_widget(form.lieu, {'attr': {'class': 'form-control', 'placeholder': 'Lieu'}}) }}
+                    {{ form_widget(form.ville, {'attr': {'class': 'form-control', 'placeholder': 'Ville', 'id': 'city-select'}}) }}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(form.site, 'Site') }}
-                    {{ form_widget(form.site, {'attr': {'class': 'form-control', 'placeholder': 'Site'}}) }}
+                    {{ form_label(form.lieu, 'Lieu') }}
+                    {{ form_widget(form.lieu, {'attr': {'class': 'form-control', 'placeholder': 'Lieu', 'id': "location-select"}}) }}
                 </div>
 
                 <div class="form-group">

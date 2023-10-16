@@ -139,6 +139,7 @@ class SortiesController extends AbstractController
             ];
         }
 
+        dd($locationsArray);
         return new JsonResponse($locationsArray);
     }
 }
