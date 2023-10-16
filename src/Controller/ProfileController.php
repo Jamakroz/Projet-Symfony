@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 
 class ProfileController extends AbstractController
 {
@@ -30,6 +29,8 @@ class ProfileController extends AbstractController
             $oldPassword = $form->get('exPassword')->getData();
             $newPassword = $form->get('newPassword')->getData();
             $newMail = $form->get('mail')->getData();
+            //TODO: variable à utiliser pour check photo de profil
+            $userAcceptPhoto = $form->get('changeProfilePicture')->getData();
 
             // Vérifier si le mot de passe actuel est valide
             if (!$passwordHasher->isPasswordValid($user, $oldPassword)) {
@@ -100,5 +101,4 @@ class ProfileController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 }

@@ -3,12 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
-use App\Form\ChangePasswordType;
 use App\Form\RegistrationFormType;
-use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -30,11 +28,14 @@ class LoginController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route('/logout', name: 'app_logout')]
     public function logout(): never
     {
         // controller can be blank: it will never be called!
-        throw new \Exception('Don\'t forget to activate logout in security.yaml');
+        throw new Exception('Don\'t forget to activate logout in security.yaml');
     }
 
     #[Route('/register', name: 'app_register')]

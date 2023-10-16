@@ -9,6 +9,7 @@ use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use ReflectionClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +22,7 @@ class SortiesController extends AbstractController
     #[Route('/', name: '_home')]
     public function index(SortieRepository $sortieRepository): Response
     {
-        $etatConstants = (new \ReflectionClass(Etat::class))->getConstants();
+        $etatConstants = (new ReflectionClass(Etat::class))->getConstants();
         return $this->render('home/index.html.twig', [
             'Etat' => $etatConstants,
             'sortieList' => $sortieRepository->findAll(),
@@ -30,7 +31,7 @@ class SortiesController extends AbstractController
 
     #[Route('/ajouter', name: '_ajouter')]
     #[Route('/modifier/{id}', name: '_modifier')]
-    public function editer(Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository, LieuRepository $lieuRepository, int $id = null): Response
+    public function editer(Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository, int $id = null): Response
     {
         if ($id == null) {
             $sortie = new Sortie();
@@ -118,7 +119,7 @@ class SortiesController extends AbstractController
     }
 
     #[Route('/get-lieu', name: '_get_lieu')]
-    public function getLieu(Request $request, LieuRepository $repository)
+    public function getLieu(Request $request, LieuRepository $repository): JsonResponse
     {
         $cityId = $request->query->get('cityId');
         $locations = $repository->findBy(['ville' => $cityId]);
