@@ -59,4 +59,15 @@ class ProfileController extends AbstractController
             'mail' => $this->getUser()->getUserIdentifier(),
         ]);
     }
+
+    #[Route('/profile/{id}', name: 'app_profile_id')]
+    public function profile(ParticipantRepository $participantRepository, int $id = null){
+        if($id != null)
+        {
+            return $this->render('home/index.html.twig', [
+                'userProfile' => $participantRepository->find($id),
+            ]);
+        }
+    }
+
 }
