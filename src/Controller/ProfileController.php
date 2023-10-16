@@ -27,6 +27,7 @@ class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $email_pattern = '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
             $oldPassword = $form->get('exPassword')->getData();
+            $newPassword = $form->get('newPassword')->getData();
             $newMail = $form->get('mail')->getData();
 
             // Vérifier si le mot de passe actuel est valide
@@ -34,7 +35,10 @@ class ProfileController extends AbstractController
                 $this->addFlash('error', "Mot de passe incorrect.");
                 $errorOccurred = true;
             }
-          }
+
+            if ($newPassword != null) {
+                $participantRepository->upgradePassword($user, $passwordHasher->hashPassword($user, $newPassword));
+            }
             if ($newMail != null && preg_match($email_pattern, $newMail)) {
                 $participantRepository->updateUserEmail($user, $newMail);
             } else {
@@ -48,10 +52,22 @@ class ProfileController extends AbstractController
                 $this->addFlash('success', 'Profil mis à jour');
                 return $this->redirectToRoute('app_profile');
             }
+        }
 
         return $this->render('profile/index.html.twig', [
             'form' => $form,
             'mail' => $this->getUser()->getUserIdentifier(),
         ]);
     }
+
+    #[Route('/profile/{id}', name: 'app_profile_id')]
+    public function profile(ParticipantRepository $participantRepository, int $id = null){
+        if($id != null)
+        {
+            return $this->render('home/index.html.twig', [
+                'userProfile' => $participantRepository->find($id),
+            ]);
+        }
+    }
+
 }
