@@ -47,24 +47,27 @@ class AppFixtures extends Fixture
         }
 
 
-        for ($i = 0; $i < 10; $i++) {
-            $ville = new Ville();
-            $ville->setNom($faker->city);
-            $ville->setCodePostal($faker->postcode);
+        // Créez les villes
+        $villesData = [
+            ['nom' => 'Nantes', 'codePostal' => '44800'],
+            ['nom' => 'Rennes', 'codePostal' => '35131'],
+            ['nom' => 'Quimper', 'codePostal' => '29000'],
+            ['nom' => 'Niort', 'codePostal' => '79000'],
+        ];
 
+        foreach ($villesData as $index => $villeData) {
+            $ville = new Ville();
+            $ville->setNom($villeData['nom']);
+            $ville->setCodePostal($villeData['codePostal']);
             $manager->persist($ville);
 
-            // Créez plusieurs entités Lieu associées à la ville
-            for ($j = 0; $j < 5; $j++) {
-                $lieu = new Lieu();
-                $lieu->setNom($faker->company);
-                $lieu->setRue($faker->streetAddress);
-                $lieu->setLatitude($faker->latitude);
-                $lieu->setLongitude($faker->longitude);
-                $lieu->setVille($ville);
+            // Créez un lieu associé à la ville
+            $lieu = new Lieu();
+            $lieu->setNom("ENI - Campus " . $villeData['nom']);
+            $lieu->setRue($index === 0 ? '3 Rue Michael Faraday' : ($index === 1 ? '8 Rue Léo Lagrange' : ($index === 2 ? '2 Rue Georges Perros' : '19 Av. Léo Lagrange Bâtiment B et C')));
+            $lieu->setVille($ville);
 
-                $manager->persist($lieu);
-            }
+            $manager->persist($lieu);
         }
 
         $manager->flush();
