@@ -32,23 +32,6 @@ class ProfileType extends AbstractType
                 'label'=>'Ancien mot de passe',
                 'required'=>true,
             ])
-            ->add('newPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'mapped'=>false,
-                'invalid_message' => 'The password fields must match.',
-                'options' => ['attr' => ['class' => 'password-field']],
-                'required' => false,
-                'first_options'  => ['label' => 'Nouveau mot de passe'],
-                'second_options' => ['label' => 'Confirmer mot de passe'],
-                'constraints' => [
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
             ->add('site', EntityType::class,[
                 'class'=>Site::class,
                 'choice_label'=> 'nom',
