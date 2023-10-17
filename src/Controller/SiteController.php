@@ -20,7 +20,7 @@ class SiteController extends AbstractController
      * @throws ORMException
      */
     #[Route('/site', name: 'app_site')]
-    public function index(Request $request, SiteRepository $repository, EntityManagerInterface $entityManager): Response
+    public function index(SiteRepository $repository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $site = new Site();
         $form = $this->createForm(SiteType::class, $site);
@@ -29,13 +29,16 @@ class SiteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($site);
             $entityManager->flush();
-            return $this->render('site/index.html.twig', [
-                'sites' => $repository->findAll(),
-            ]);
+
+            // A redirection should happen after form submission to prevent duplicate form submission on page refresh.
+            return $this->redirectToRoute('app_site');
         }
+
+        $villes = $repository->findAll();
+
         return $this->render('site/index.html.twig', [
-            'form' => $form,
-            'sites' => $repository->findAll(),
+            'form' => $form->createView(),  // Create a view of the form to render it
+            'sites' => $villes,
         ]);
     }
     /**
