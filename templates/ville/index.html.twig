@@ -20,7 +20,7 @@
                 <tr>
                     <td>{{ ville.nom }}</td>
                     <td>
-                        <a href="{{ path('modifier_ville', {'id': ville.id}) }}" class="btn btn-primary">Modifier</a>
+                        <a href="{{ path('app_ville_editer', {'id': ville.id}) }}" class="btn btn-primary">Modifier</a>
                         <!-- Ajoutez ici d'autres actions comme la suppression si nécessaire -->
                     </td>
                 </tr>
@@ -29,6 +29,13 @@
                     <td colspan="2">Aucune ville n'est disponible.</td>
                 </tr>
             {% endfor %}
+            <td>
+                {%  if(form != null) %}
+                {{ form_start(form) }}
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                {{ form_end(form) }}
+                {% endif %}
+            </td>
             </tbody>
         </table>
     </div>
