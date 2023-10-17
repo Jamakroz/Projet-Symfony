@@ -28,15 +28,15 @@ class AppFixtures extends Fixture
         $site = new Site();
         $site->setNom("Campus ENI Niort");
         $manager->persist($site);
-        $site2 = new Site();
-        $site2->setNom("Campus ENI Nantes");
-        $manager->persist($site2);
-        $site3 = new Site();
-        $site3->setNom("Campus ENI Quimper");
-        $manager->persist($site3);
-        $site4 = new Site();
-        $site4->setNom("Campus ENI Rennes");
-        $manager->persist($site4);
+        $site = new Site();
+        $site->setNom("Campus ENI Nantes");
+        $manager->persist($site);
+        $site = new Site();
+        $site->setNom("Campus ENI Quimper");
+        $manager->persist($site);
+        $site = new Site();
+        $site->setNom("Campus ENI Rennes");
+        $manager->persist($site);
 
         for ($i = 0; $i < 10; $i++) {
             $participant = new Participant();
@@ -49,9 +49,6 @@ class AppFixtures extends Fixture
             $participant->setAdministrateur($faker->boolean);
             $participant->setActif($faker->boolean);
             $participant->setSite($site);
-            $participant->setSite($site2);
-            $participant->setSite($site3);
-            $participant->setSite($site4);
 
             $manager->persist($participant);
         }

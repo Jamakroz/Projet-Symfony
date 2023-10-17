@@ -48,9 +48,9 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ sortie.nom }}</h5>
                         <p class="card-text">Date de début: {{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</p>
-                        {%  if (app.user not in sortie.participantsInscrits) and (sortie.etat == Etat.OPEN) and ('now'|date('d/m/Y H:i') < sortie.dateLimiteInscription|date('d/m/Y H:i')) %}
+                        {%  if (app.user not in sortie.participantsInscrits) and (sortie.etat == Etat.OPEN) and ('now'|date('U') < sortie.dateLimiteInscription|date('U')) %}
                             <a href="{{ path('app_inscription',{id:sortie.id}) }}" class="btn btn-primary">S'inscrire</a>
-                        {% elseif 'now'|date('d/m/Y H:i') < sortie.dateLimiteInscription|date('d/m/Y H:i') and app.user in sortie.participantsInscrits %}
+                        {% elseif 'now'|date('U') < sortie.dateLimiteInscription|date('U') and app.user in sortie.participantsInscrits %}
                             <a href="{{ path('app_desister',{id:sortie.id}) }}" class="btn btn-danger">Se désister</a>
                         {% else %}
                         <td><a>Vous ne pouvez pas vous inscrire à cette sortie</a></td>
