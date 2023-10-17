@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une Sortie{% endblock %}
+
+{% block body %}
+    <h1>Créer une Sortie</h1>
+
+    {% if errors is not empty %}
+        <div class="alert alert-danger">
+            {{ errors }}
+        </div>
+    {% endif %}
+
+    <form method="post" {# action="{{ path('nom_de_votre_route_de_creation_sortie') }}"#}>
+        {{ form_start(form) }}
+
+        <div class="form-group">
+            {{ form_label(form.nom, 'Nom de la Sortie') }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.dateHeureDebut, 'Date et Heure de Début') }}
+            {{ form_widget(form.dateHeureDebut, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.duree, 'Durée (en minutes)') }}
+            {{ form_widget(form.duree, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <!-- Ajoutez d'autres champs de formulaire ici -->
+
+        <button type="submit" class="btn btn-primary">Créer Sortie</button>
+
+        {{ form_end(form) }}
+    </form>
+{% endblock %}

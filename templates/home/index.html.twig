@@ -5,13 +5,24 @@
 {% block body %}
 
     <h1>Liste des sorties</h1>
+    {# Formulaire de filtrage #}
+    <form method="get" action="{{ path('app_home') }}">
+        <label for="nom">Nom de la sortie:</label>
+        <input type="text" name="nom" id="nom">
+
+        <label for="dateDebut">Date de début:</label>
+        <input type="datetime-local" name="dateDebut" id="dateDebut">
+
+        <label for="dateDebut">Date de début:</label>
+        <input type="datetime-local" name="dateDebut" id="dateDebut">
+
+        <input type="submit" value="Filtrer">
+    </form>
+
+    <a href="{{ path('app_ajouter') }}" class="btn btn-primary">Crée une sortie</a>
+
+
     <table>
-        <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Date</th>
-        </tr>
-        </thead>
         <tbody>
         {% for sortie in sortieList %}
             <tr>
