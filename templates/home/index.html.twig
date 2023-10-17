@@ -7,34 +7,57 @@
     <h1>Liste des sorties</h1>
     {# Formulaire de filtrage #}
     <form method="get" action="{{ path('app_home') }}">
-        <label for="nom">Nom de la sortie:</label>
-        <input type="text" name="nom" id="nom">
-
-        <label for="dateDebut">Date de début:</label>
-        <input type="datetime-local" name="dateDebut" id="dateDebut">
-
-        <label for="dateDebut">Date de début:</label>
-        <input type="datetime-local" name="dateDebut" id="dateDebut">
-
+        <div>
+            <label for="keywords">Rechercher une sortie par mots-clés:</label>
+            <input type="text" name="keywords" id="keywords">
+        </div>
+{#        <div>#}
+{#            <label for="site">Choisir un site:</label>#}
+{#            <select name="site" id="site">#}
+{#                #}{# Boucle sur les sites pour créer les options du select #}
+{#                {% for site in sites %}#}
+{#                    <option value="{{ site.id }}">{{ site.nom }}</option>#}
+{#                {% endfor %}#}
+{#            </select>#}
+{#        </div>#}
+        <div>
+            <label for="status">Choisir un statut:</label>
+            <select name="status" id="status">
+                <option value="open">Ouverte</option>
+                <option value="closed">Fermée</option>
+                <option value="cancelled">Annulée</option>
+            </select>
+        </div>
+        <div>
+            <label for="startDate">Date de début:</label>
+            <input type="datetime-local" name="startDate" id="startDate">
+        </div>
+        <div>
+            <label for="endDate">Date de fin:</label>
+            <input type="datetime-local" name="endDate" id="endDate">
+        </div>
         <input type="submit" value="Filtrer">
     </form>
 
     <a href="{{ path('app_ajouter') }}" class="btn btn-primary">Crée une sortie</a>
 
-
-    <table>
-        <tbody>
+    <div class="row mt-4">
         {% for sortie in sortieList %}
-            <tr>
-                <td>{{ sortie.nom }}</td>
-                <td>{{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</td>
-                {%  if (app.user not in sortie.participantsInscrits) and (sortie.etat == Etat.OPEN) and ('now'|date('d/m/Y H:i') < sortie.dateLimiteInscription|date('d/m/Y H:i')) %}
-                <td><a href="{{ path('app_inscription',{id:sortie.id}) }}">S'inscrire</a> </td>
-                {% elseif 'now'|date('d/m/Y H:i') < sortie.dateLimiteInscription|date('d/m/Y H:i') %}
-                    <td><a href="{{ path('app_desister',{id:sortie.id}) }}">Se désister</a> </td>
-                {% endif %}
-            </tr>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ sortie.nom }}</h5>
+                        <p class="card-text">Date de début: {{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</p>
+                        {%  if (app.user not in sortie.participantsInscrits) and (sortie.etat == Etat.OPEN) and ('now'|date('d/m/Y H:i') < sortie.dateLimiteInscription|date('d/m/Y H:i')) %}
+                            <a href="{{ path('app_inscription',{id:sortie.id}) }}" class="btn btn-primary">S'inscrire</a>
+                        {% elseif 'now'|date('d/m/Y H:i') < sortie.dateLimiteInscription|date('d/m/Y H:i') and app.user in sortie.participantsInscrits %}
+                            <a href="{{ path('app_desister',{id:sortie.id}) }}" class="btn btn-danger">Se désister</a>
+                        {% else %}
+                        <td><a>Vous ne pouvez pas vous inscrire à cette sortie</a></td>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
 {% endblock %}
