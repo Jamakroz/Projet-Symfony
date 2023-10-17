@@ -38,4 +38,35 @@ class SiteController extends AbstractController
             'sites' => $repository->findAll(),
         ]);
     }
+    /**
+     * @throws OptimisticLockException
+     * @throws ORMException
+     */
+    #[Route('/site/modifier', name: 'app_site_modifier')]
+    public function modifier(Request $request, Site $site, SiteRepository $repository, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(SiteType::class, $site);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($site);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_site');
+        }
+        return $this->render('site/modifierSite.html.twig', [
+            'form' => $form,
+          'site' => $site,
+        ]);
+    }
+    /**
+     * @throws OptimisticLockException
+     * @throws ORMException
+     */
+    #[Route('/site/supprimer/', name: 'app_site_supprimer')]
+    public function supprimer(Request $request, Site $site, SiteRepository $repository, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($site);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_site');
+    }
 }
