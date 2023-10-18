@@ -46,14 +46,13 @@
             <div class="col-md-4 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ path('app_sortie_view', {id:sortie.id}) }}">testy</a>
-                         <h5 class="card-title">{{ sortie.nom }}</h5>
+                        <a href="{{ path('app_sortie_view', {id:sortie.id}) }}"><h5 class="card-title">{{ sortie.nom }}</h5></a>
                         <p class="card-text">Date de début: {{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</p>
                         {% if app.user == sortie.organisateur %}
                         <a href="{{ path('app_annuler', {id: sortie.id}) }}" class="btn btn-danger">Supprimer</a>
-{#                        {% if sortie.etat == Etat.CREATION %}#}
-{#                            <a href="{{ path('', {id: sortie.id}) }}" class="btn btn-danger">publier</a>#}
-{#                        {% endif %}#}
+                        {% if sortie.etat == Etat.CREATION %}
+                            <a href="{{ path('app_publier', {id: sortie.id}) }}" class="btn btn-danger">publier</a>
+                        {% endif %}
                         {% elseif (app.user not in sortie.participantsInscrits) and (sortie.etat == Etat.OPEN) and ('now'|date('U') < sortie.dateLimiteInscription|date('U')) %}
                             <a href="{{ path('app_inscription',{id:sortie.id}) }}" class="btn btn-primary">S'inscrire</a>
                         {% elseif 'now'|date('U') < sortie.dateLimiteInscription|date('U') and app.user in sortie.participantsInscrits %}

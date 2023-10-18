@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/', name: 'app')]
 class SortiesController extends AbstractController
@@ -42,7 +43,7 @@ class SortiesController extends AbstractController
 
     #[Route('/ajouter', name: '_ajouter')]
     #[Route('/modifier/{id}', name: '_modifier')]
-    public function editer(Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository, int $id = null): Response
+    public function editer(ValidatorInterface $validator,Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository, int $id = null): Response
     {
         if ($id == null) {
             $sortie = new Sortie();
@@ -74,21 +75,25 @@ class SortiesController extends AbstractController
 
             return $this->redirectToRoute('app_home');
         }
+        $errors = $validator->validate($sortie);
         return $this->render('home/editerSortie.html.twig', [
             'form' => $form,
-            'sortie' => $sortie
+            'sortie' => $sortie,
+            'errors'=>$errors
         ]);
     }
 
     #[Route('/annuler/{id}', name: '_annuler')]
     public function annuler(EntityManagerInterface $entityManager, SortieRepository $sortieRepository, int $id = null): Response
     {
-        $entityManager->remove($sortieRepository->find($id));
+        //TODO: CHANGER CETTE CONNERIE
+        $sortie = $sortieRepository->find($id);
+        $entityManager->remove($sortie);
         $entityManager->flush();
 
         $this->addFlash(
             'success',
-            'La sortie à bien été annuler !'
+            'La sortie à bien été annulée !'
         );
 
         return $this->redirectToRoute('app_home');
@@ -163,7 +168,7 @@ class SortiesController extends AbstractController
     }
 
     #[Route('/publier/{id}', name: '_publier')]
-    public function publier(SortieRepository $sr, int $id = null)
+    public function publier(EntityManagerInterface $entityManager,SortieRepository $sr, int $id = null)
     {
         if($id != null)
         {
@@ -171,6 +176,7 @@ class SortiesController extends AbstractController
             if($this->getUser() === $sortie->getOrganisateur())
             {
                 $sortie->setEtat(Etat::OPEN());
+                $entityManager->flush();
             }
         }
         return $this->redirectToRoute('app_sortie_view', ['id'=>$id]);

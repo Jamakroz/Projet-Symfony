@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
 {
@@ -19,21 +19,33 @@ class Sortie
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\GreaterThan(0, message: "Le nom doit avoir entre 1 et 20 caractères.")]
+    #[Assert\LessThan(21, message: "Le nom doit avoir entre 1 et 20 caractères.")]
     private ?string $nom = null;
 
+
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\GreaterThan("today", message: "La date doit être supérieure à la date actuelle")]
+
     private ?DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column]
+    #[Assert\GreaterThan(0, message: "La durée doit être supérieur à 0.")]
     private ?int $duree = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\GreaterThan("today", message: "La date doit être supérieure à la date actuelle.")]
+    #[Assert\Expression("this.getDateLimiteInscription() < this.getDateHeureDebut()", message: "La date limite d'inscription doit être inférieure à la date de la sortie.")]
     private ?DateTimeInterface $dateLimiteInscription = null;
 
     #[ORM\Column]
+    #[Assert\GreaterThan(0, message: "Le nombre de participant doit être supérieur à 0.")]
     private ?int $nbInscriptionsMax = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\GreaterThan(0, message: "La description doit avoir entre 20 et 255 caractères.")]
+    #[Assert\LessThan(21, message: "La description doit avoir entre 20 et 255 caractères.")]
     private ?string $infosSortie = null;
 
     #[ORM\ManyToOne]
