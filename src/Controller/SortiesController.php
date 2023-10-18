@@ -46,11 +46,12 @@ class SortiesController extends AbstractController
     #[Route('/modifier/{id}', name: '_modifier')]
     public function editer(ValidatorInterface $validator,Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository, int $id = null): Response
     {
+        $etatConstants = (new ReflectionClass(Etat::class))->getConstants();
         if ($id == null) {
             $sortie = new Sortie();
         } else {
             $sortie = $sortieRepository->find($id);
-            $etatConstants = (new ReflectionClass(Etat::class))->getConstants();
+
         }
 
         $form = $this->createForm(SortieType::class, $sortie);

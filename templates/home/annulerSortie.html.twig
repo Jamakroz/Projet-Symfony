@@ -2,7 +2,7 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}{% if sortie.id is not null %}Modifier Sortie{% else %}Ajouter Sortie{% endif %}{% endblock %}
+{% block title %}Annuler la sortie{% endblock %}
 
 {% block body %}
     {% for message in app.flashes('success') %}
@@ -15,9 +15,6 @@
             {{ message }}
         </div>
     {% endfor %}
-    {% for error in errors %}
-        <li>{{ error.message }}</li>
-    {% endfor %}
     <div class="container mt-4">
         <h1>Annuler une sortie</h1>
         <div class="row">
@@ -26,7 +23,7 @@
 
                 <div class="form-group">
                     {{ form_label(form.motifAnnulation, "Motif de l'annulation") }}
-                    {{ form_widget(form.motifAnnulation, {'attr': {'class': 'form-control', 'placeholder': 'Nom de la Sortie'}}) }}
+                    {{ form_widget(form.motifAnnulation, {'attr': {'class': 'form-control', 'placeholder': "Motif d'annulation de la sortie"}}) }}
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">
