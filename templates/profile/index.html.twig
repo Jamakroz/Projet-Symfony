@@ -3,19 +3,14 @@
 {% block title %}Modification du profil{% endblock %}
 
 {% block body %}
-    <div class="container bootstrap snippets bootdey">
-        <h1 class="text-primary">Profile</h1>
-        <hr>
+    <div class="container mt-5">
         <div class="row">
             <!-- left column -->
             <div class="col-md-3">
                 <div class="text-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                         class="avatar img-circle img-thumbnail" alt="avatar">
-                    <h6>Modifier la photo de profil</h6>
-                    {{ form_widget(form.photo, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="form-group">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                    <h6 class="mt-2">Modifier la photo de profil</h6>
+                    {{ form_widget(form.photo, {'attr': {'class': 'form-control mt-2'}}) }}
                     {{ form_label(form.changeProfilePicture) }}
                     {{ form_widget(form.changeProfilePicture) }}
                 </div>
@@ -23,55 +18,62 @@
 
             <!-- edit form column -->
             <div class="col-md-9 personal-info">
-                <h3>Information</h3>
+                <h3 class="mb-4">Informations</h3>
+                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
-                <div class="form-group">
-                    {{ form_label(form.pseudo, 'Pseudo:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
-                    <div class="col-lg-8">
+                <div class="form-group row">
+                    {{ form_label(form.pseudo, 'Pseudo:', {'label_attr': {'class': 'col-lg-3 col-form-label'}}) }}
+                    <div class="col-lg-9">
                         {{ form_widget(form.pseudo, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>
-                <div class="form-group">
-                    {{ form_label(form.prenom, 'Prénom:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
-                    <div class="col-lg-8">
+
+                <div class="form-group row">
+                    {{ form_label(form.prenom, 'Prénom:', {'label_attr': {'class': 'col-lg-3 col-form-label'}}) }}
+                    <div class="col-lg-9">
                         {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>
-                <div class="form-group">
-                    {{ form_label(form.nom, 'Nom de famille:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
-                    <div class="col-lg-8">
+
+                <div class="form-group row">
+                    {{ form_label(form.nom, 'Nom de famille:', {'label_attr': {'class': 'col-lg-3 col-form-label'}}) }}
+                    <div class="col-lg-9">
                         {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>
-                <div class="form-group">
-                    {{ form_label(form.telephone, 'Téléphone:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
-                    <div class="col-lg-8">
+
+                <div class="form-group row">
+                    {{ form_label(form.telephone, 'Téléphone:', {'label_attr': {'class': 'col-lg-3 col-form-label'}}) }}
+                    <div class="col-lg-9">
                         {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>
-                <div class="form-group">
-                    {{ form_label(form.mail, 'Email:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
-                    <div class="col-lg-8">
+
+                <div class="form-group row">
+                    {{ form_label(form.mail, 'Email:', {'label_attr': {'class': 'col-lg-3 col-form-label'}}) }}
+                    <div class="col-lg-9">
                         {{ form_widget(form.mail, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>
-                <div class="form-group">
-                    {{ form_label(form.exPassword, 'Mon mot de passe:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
-                    <div class="col-lg-8">
+
+                <div class="form-group row">
+                    {{ form_label(form.exPassword, 'Mon mot de passe:', {'label_attr': {'class': 'col-lg-3 col-form-label'}}) }}
+                    <div class="col-lg-9">
                         {{ form_widget(form.exPassword, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>
-                <div class="form-group">
-                    {{ form_label(form.site, 'Site:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
-                    <div class="col-lg-8">
-                        {{ form_widget(form.site, {'attr': {'class': 'ui-select form-control'}}) }}
+
+                <div class="form-group row">
+                    {{ form_label(form.site, 'Site:', {'label_attr': {'class': 'col-lg-3 col-form-label'}}) }}
+                    <div class="col-lg-9">
+                        {{ form_widget(form.site, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-lg-offset-3 col-lg-8">
+
+                <div class="form-group row mt-4">
+                    <div class="col-lg-9 offset-lg-3">
+                        <a href="{{ path('app_ModifPassword') }}" class="btn btn-primary mr-2">Modifier le Mot de Passe</a>
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
-                        <a href="{{ path('app_ModifPassword') }}" class="btn btn-primary">Modifier le Mot de Passe</a>
                     </div>
                 </div>
 
