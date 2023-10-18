@@ -7,6 +7,7 @@ use App\Entity\Sortie;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,7 +37,18 @@ class SortieType extends AbstractType
                     'class'=>'btn btn-secondary dropdown-toggle form-control',
                 ]
             ])
-        ;
+            ->add('etat', ChoiceType::class, [
+                'label' => 'État de la Sortie',
+                'choices' => [
+                    'En préparation' => 'en_preparation',
+                    'En cours' => 'en_cours',
+                    'Terminée' => 'terminee',
+                    // Ajoutez d'autres états si nécessaire
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
