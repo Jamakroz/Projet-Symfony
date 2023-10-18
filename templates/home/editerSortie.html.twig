@@ -98,10 +98,6 @@
                         {% if sortie.id is not null %}Modifier{% else %}Ajouter{% endif %}
                     </button>
                 </div>
-                <div class="form-group">
-                    {{ form_label(form.etat, 'État de la Sortie') }}
-                    {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
-                </div>
                 {{ form_end(form) }}
             </div>
         </div>

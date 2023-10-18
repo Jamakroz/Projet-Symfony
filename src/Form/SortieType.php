@@ -36,18 +36,6 @@ class SortieType extends AbstractType
                 'attr'=>[
                     'class'=>'btn btn-secondary dropdown-toggle form-control',
                 ]
-            ])
-            ->add('etat', ChoiceType::class, [
-                'label' => 'État de la Sortie',
-                'choices' => [
-                    'En préparation' => 'en_preparation',
-                    'En cours' => 'en_cours',
-                    'Terminée' => 'terminee',
-                    // Ajoutez d'autres états si nécessaire
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                ],
             ]);
     }
 
