@@ -3,22 +3,29 @@
 {% block title %}Liste des Sites{% endblock %}
 
 {% block body %}
-    <h1>Liste des Sites</h1>
+    <h1 class="site-title">Liste des Sites</h1>
+
+    {# Liste des sites existants #}
+    {% if sites is not empty %}
+        <ul>
+            {% for site in sites %}
+                <li>
+                    {{ site.nom }}
+                    <a href="{{ path('app_site_modifier', {'id': site.id}) }}">Modifier</a>
+                    <a href="{{ path('app_site_supprimer', {'id': site.id}) }}"
+                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce site?')">Supprimer</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun site trouvé.</p>
+    {% endif %}
 
     {# Formulaire pour créer un site #}
-    <form method="post" action="{{ path('app_site') }}">
+    <form class="site-form" method="post" action="{{ path('app_site') }}">
         <label for="nouveauSite">Nouveau Site:</label>
         <input type="text" name="nouveauSite" id="nouveauSite">
         <input type="submit" value="Créer">
     </form>
 
-    <hr>
-
-    {# Liste des sites existants #}
-    {% for site in sites %}
-        <h4>{{ site.nom }}</h4>
-        <a href="{{ path('app_site_modifier', {'id': site.id}) }}">Modifier</a>
-        <a href="{{ path('app_site_supprimer', {'id': site.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce site?')">Supprimer</a>
-        <hr>
-    {% endfor %}
 {% endblock %}
