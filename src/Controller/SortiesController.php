@@ -161,4 +161,20 @@ class SortiesController extends AbstractController
 
         return $this->redirectToRoute('app_home');
     }
+
+    #[Route('/publier/{id}', name: '_publier')]
+    public function publier(SortieRepository $sr, int $id = null)
+    {
+        if($id != null)
+        {
+            $sortie = $sr->find($id);
+            if($this->getUser() === $sortie->getOrganisateur())
+            {
+                $sortie->setEtat(Etat::OPEN());
+            }
+        }
+        return $this->redirectToRoute('app_sortie_view', ['id'=>$id]);
+    }
+
+
 }

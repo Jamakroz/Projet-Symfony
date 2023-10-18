@@ -25,5 +25,8 @@
                 </tr>
             </tbody>
         </table>
+        {% for participant in sortie.participantsInscrits %}
+        <p>{{ participant.nom }}</p>
+        {% endfor %}
     </div>
 {% endblock %}
