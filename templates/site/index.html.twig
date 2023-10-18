@@ -22,9 +22,12 @@
     {% endif %}
 
     {# Formulaire pour créer un site #}
-    <form class="site-form" }}"
+    <form class="site-form">
         {{ form_start(form) }}
-        {{ form.nom }}
+        <div class="form-group">
+            {{ form_label(form.nom, 'Nom du site') }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom du site'}}) }}
+        </div>
         <input type="submit" value="Créer">
         {{ form_end(form) }}
     </form>
