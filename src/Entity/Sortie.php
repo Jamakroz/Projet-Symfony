@@ -19,8 +19,11 @@ class Sortie
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\GreaterThan(0, message: "Le nom doit avoir entre 1 et 20 caractères.")]
-    #[Assert\LessThan(21, message: "Le nom doit avoir entre 1 et 20 caractères.")]
+    #[Assert\Length(
+        min:1,
+        max: 20,
+        minMessage: "Le nom doit avoir entre 1 et 20 caractères.",
+        maxMessage: "Le nom doit avoir entre 1 et 20 caractères.")]
     private ?string $nom = null;
 
 
@@ -44,8 +47,11 @@ class Sortie
     private ?int $nbInscriptionsMax = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\GreaterThan(0, message: "La description doit avoir entre 20 et 255 caractères.")]
-    #[Assert\LessThan(21, message: "La description doit avoir entre 20 et 255 caractères.")]
+    #[Assert\Length(
+        min:19,
+        max: 255,
+        minMessage: "La description doit avoir entre 20 et 255 caractères.",
+        maxMessage: "La description doit avoir entre 20 et 255 caractères.")]
     private ?string $infosSortie = null;
 
     #[ORM\ManyToOne]
