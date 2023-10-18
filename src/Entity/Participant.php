@@ -257,4 +257,9 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getUserIdentifierForLogin(): string
+    {
+        return $this->mail . '|' . $this->pseudo; // combiner les propriétés (ajouter plus si nécessaire)
+    }
 }
