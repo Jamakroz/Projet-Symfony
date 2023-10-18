@@ -20,13 +20,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortiesController extends AbstractController
 {
     #[Route('/', name: '_home')]
-    public function index(SortieRepository $sortieRepository): Response
+    #[Route('/sortie/{id}', name: '_sortie_view')]
+    public function index(SortieRepository $sortieRepository, int $id = null): Response
     {
-        $etatConstants = (new ReflectionClass(Etat::class))->getConstants();
-        return $this->render('home/index.html.twig', [
-            'Etat' => $etatConstants,
-            'sortieList' => $sortieRepository->findAll(),
-        ]);
+        if($id != null)
+        {
+            $etatConstants = (new ReflectionClass(Etat::class))->getConstants();
+            return $this->render('home/voirSortie.html.twig', [
+                'Etat' => $etatConstants,
+                'sortie' => $sortieRepository->find($id),
+            ]);
+        }
+        else{
+            $etatConstants = (new ReflectionClass(Etat::class))->getConstants();
+            return $this->render('home/index.html.twig', [
+                'Etat' => $etatConstants,
+                'sortieList' => $sortieRepository->findAll(),
+            ]);
+        }
     }
 
     #[Route('/ajouter', name: '_ajouter')]

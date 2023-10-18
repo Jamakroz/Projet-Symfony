@@ -46,9 +46,11 @@
             <div class="col-md-4 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ sortie.nom }}</h5>
+                        <a href="{{ path('app_sortie_view', {id:sortie.id}) }}">testy</a>
+                         <h5 class="card-title">{{ sortie.nom }}</h5>
                         <p class="card-text">Date de début: {{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</p>
                         {% if app.user == sortie.organisateur %}
+                            {% if sortie.etat = Etat.CREATION %}
                             <a href="{{ path('app_annuler', {id: sortie.id}) }}" class="btn btn-danger">Supprimer</a>
 {#                            <a href="{{ path('', {id: sortie.id}) }}" class="btn btn-danger">publier</a>#}
                         {% elseif (app.user not in sortie.participantsInscrits) and (sortie.etat == Etat.OPEN) and ('now'|date('U') < sortie.dateLimiteInscription|date('U')) %}

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ville{% endblock %}
+
+{% block body %}
+    <div class="container bootstrap snippets bootdey">
+        <h1 class="text-primary">SORTIE</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nom de la sortie</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ sortie.nom }}</td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Aucune ville n'est disponible.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
