@@ -23,16 +23,6 @@
 
             <!-- edit form column -->
             <div class="col-md-9 personal-info">
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-success">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-                {% for message in app.flashes('error') %}
-                    <div class="alert alert-danger">
-                        {{ message }}
-                    </div>
-                {% endfor %}
                 <h3>Information</h3>
 
                 {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}

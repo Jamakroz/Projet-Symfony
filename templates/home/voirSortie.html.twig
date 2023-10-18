@@ -5,28 +5,25 @@
 {% block body %}
     <div class="container bootstrap snippets bootdey">
         <h1 class="text-primary">SORTIE</h1>
+                    {{ sortie.nom }}
 
         <table class="table">
-            <thead>
-            <tr>
-                <th>Nom de la sortie</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
             <tbody>
-                <tr>
-                    <td>{{ sortie.nom }}</td>
-                    <td>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">Aucune ville n'est disponible.</td>
-                </tr>
+            <tr>
+                <td>Pseudo</td>
+                <td>Nom Prenom</td>
+            </tr>
+            {% for participant in sortie.participantsInscrits %}
+            <tr>
+                <td>{{ participant.pseudo }}</td>
+                <td>{{ participant.nom }}   {{ participant.prenom }}</td>
+            </tr>
+            {% endfor %}
             </tbody>
         </table>
-        {% for participant in sortie.participantsInscrits %}
-        <p>{{ participant.nom }}</p>
-        {% endfor %}
+        <!-- DivTable.com -->
+
+        <p></p>
+
     </div>
 {% endblock %}

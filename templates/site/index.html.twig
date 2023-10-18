@@ -22,10 +22,11 @@
     {% endif %}
 
     {# Formulaire pour créer un site #}
-    <form class="site-form" method="post" action="{{ path('app_site') }}">
-        <label for="nouveauSite">Nouveau Site:</label>
-        <input type="text" name="nouveauSite" id="nouveauSite">
+    <form class="site-form" }}"
+        {{ form_start(form) }}
+        {{ form.nom }}
         <input type="submit" value="Créer">
+        {{ form_end(form) }}
     </form>
 
 {% endblock %}
