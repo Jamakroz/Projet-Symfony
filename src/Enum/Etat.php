@@ -6,9 +6,11 @@ use MyCLabs\Enum\Enum;
 
 class Etat extends Enum
 {
-    private const CREATION =  'En création';
-    private const OPEN =  'Ouvert';
-    private const INPROGRESS =  'En cours';
-    private const CLOSED =  'Fermée';
+    private const CREATION =  'Créée';
+    private const OPEN =  'Ouverte';
+    private const INPROGRESS =  'Activité en cours';
+    private const CLOSED =  'Cloturée';
+    private const PAST =  'Passée';
+    private const CANCELED =  'Annulée';
 
 }

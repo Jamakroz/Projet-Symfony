@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Sortie;
 use App\Enum\Etat;
+use App\Form\AnnulerSortieType;
 use App\Form\SortieType;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
@@ -49,6 +50,7 @@ class SortiesController extends AbstractController
             $sortie = new Sortie();
         } else {
             $sortie = $sortieRepository->find($id);
+            $etatConstants = (new ReflectionClass(Etat::class))->getConstants();
         }
 
         $form = $this->createForm(SortieType::class, $sortie);
@@ -79,24 +81,34 @@ class SortiesController extends AbstractController
         return $this->render('home/editerSortie.html.twig', [
             'form' => $form,
             'sortie' => $sortie,
-            'errors'=>$errors
+            'errors'=>$errors,
+            'etats'=> $etatConstants
         ]);
     }
 
     #[Route('/annuler/{id}', name: '_annuler')]
-    public function annuler(EntityManagerInterface $entityManager, SortieRepository $sortieRepository, int $id = null): Response
+    public function annuler(Request $request,EntityManagerInterface $entityManager, SortieRepository $sortieRepository, int $id = null): Response
     {
-        //TODO: CHANGER CETTE CONNERIE
-        $sortie = $sortieRepository->find($id);
-        $entityManager->remove($sortie);
-        $entityManager->flush();
+        $sortie = new Sortie();
+        // ...
 
-        $this->addFlash(
-            'success',
-            'La sortie à bien été annulée !'
-        );
-
-        return $this->redirectToRoute('app_home');
+        $form = $this->createForm(AnnulerSortieType::class, $sortie);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $sortie = $form->getData();
+            $sortie->setEtat(Etat::CANCELED());
+            $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'La sortie à bien été annulée !'
+            );
+            return $this->redirectToRoute('app_sortie_view');
+        }
+        return $this->render('home/annulerSortie.html.twig', [
+            'form' => $form,
+        ]);
     }
 
     #[Route('/inscription/{id}', name: '_inscription')]

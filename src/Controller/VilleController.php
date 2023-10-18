@@ -37,11 +37,31 @@ class VilleController extends AbstractController
         ]);
     }
 
-    #[Route('/editer', name: '_editer')]
-    public function editer(VilleRepository $repository): Response
+    #[Route('/editer/{id}', name: '_editer')]
+    public function editer(Request $request, VilleRepository $repository,EntityManagerInterface $entityManager, int $id = null): Response
     {
+        if($id != null)
+        {
+            $ville = $repository->find($id);
+        }
+        else
+        {
+            $ville = new Ville();
+        }
+
+        $form = $this->createForm(VilleType::class, $ville);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($ville);
+            $entityManager->flush();
+
+            // A redirection should happen after form submission to prevent duplicate form submission on page refresh.
+            return $this->redirectToRoute('app_ville_index');
+        }
+
         return $this->render('ville/index.html.twig', [
-            'villes' => $repository->findAll(),
+            'form' => $form->createView(),  // Create a view of the form to render it
         ]);
     }
 }

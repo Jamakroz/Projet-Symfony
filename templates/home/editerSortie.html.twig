@@ -100,6 +100,12 @@
                     <button type="submit" class="btn btn-primary">
                         {% if sortie.id is not null %}Modifier{% else %}Ajouter{% endif %}
                     </button>
+                    {% if sortie.etat == etats.CREATION %}
+                        <a href="{{ path('app_publier', {id:sortie.id}) }}" class="btn btn-primary">Publier</a>
+                    {% endif %}
+                    {% if sortie.etat == etats.OPEN %}
+                        <a href="{{ path('app_annuler', {id:sortie.id}) }}" class="btn btn-primary">Annuler</a>
+                    {% endif %}
                 </div>
                 {{ form_end(form) }}
             </div>
