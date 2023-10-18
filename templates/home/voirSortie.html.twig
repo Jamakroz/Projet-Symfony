@@ -3,27 +3,29 @@
 {% block title %}Ville{% endblock %}
 
 {% block body %}
-    <div class="container bootstrap snippets bootdey">
-        <h1 class="text-primary">SORTIE</h1>
-                    {{ sortie.nom }}
-
-        <table class="table">
-            <tbody>
-            <tr>
-                <td>Pseudo</td>
-                <td>Nom Prenom</td>
-            </tr>
-            {% for participant in sortie.participantsInscrits %}
-            <tr>
-                <td>{{ participant.pseudo }}</td>
-                <td>{{ participant.nom }}   {{ participant.prenom }}</td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <!-- DivTable.com -->
-
-        <p></p>
-
+    <div class="container mt-5">
+        <h1 class="text-primary mb-4">Détails de la Sortie</h1>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">{{ sortie.nom }}</h2>
+                <h6 class="card-subtitle mb-2 text-muted">Participants Inscrits</h6>
+                <table class="table table-bordered mt-3">
+                    <thead>
+                    <tr>
+                        <th scope="col">Pseudo</th>
+                        <th scope="col">Nom et Prénom</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for participant in sortie.participantsInscrits %}
+                        <tr>
+                            <td>{{ participant.pseudo }}</td>
+                            <td>{{ participant.nom }} {{ participant.prenom }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock %}
