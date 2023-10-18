@@ -94,7 +94,7 @@
                         {% if sortie.etat == etats.CREATION %}
                             <a href="{{ path('app_publier', {id:sortie.id}) }}" class="btn btn-primary">Publier</a>
                         {% endif %}
-                        {% if sortie.etat == etats.OPEN %}
+                        {% if sortie.etat == etats.OPEN and sortie.organisateur == app.user %}
                             <a href="{{ path('app_annuler', {id:sortie.id}) }}" class="btn btn-primary">Annuler</a>
                         {% endif %}
                     {% endif %}
