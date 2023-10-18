@@ -37,10 +37,14 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">{{ sortie.nom }}</h5>
+                            <a href="{{ path('app_sortie_view', {id:sortie.id}) }}"><h5 class="card-title">{{ sortie.nom }}</h5></a>
                             <p class="card-text"><strong>Date de début:</strong> {{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</p>
                             <p class="card-text"><strong>Date de fin:</strong> {{ sortie.dateLimiteInscription|date('d/m/Y H:i') }}</p>
                             <p class="card-text"><strong>Inscrits:</strong> {{ sortie.participantsInscrits|length }}/{{ sortie.nbInscriptionsMax }}</p>
+                            <p class="card-text"><strong>Etat:</strong> {{ sortie.etat }}</p>
+                            <p class="card-text"><strong>Inscrit:</strong> {% if app.user in sortie.participantsInscrits %}Oui{% else %}Non{% endif %}</p>
+                            <p class="card-text"><strong>Organisateur:</strong> {{ sortie.organisateur.pseudo }}</p>
+                            <p class="card-text"><strong>Action:</strong> </p>
 
                             {% if app.user == sortie.organisateur %}
                                 <a href="{{ path('app_modifier', {id: sortie.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
