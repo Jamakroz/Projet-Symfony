@@ -66,10 +66,21 @@ class SiteController extends AbstractController
      * @throws ORMException
      */
     #[Route('/site/supprimer/', name: 'app_site_supprimer')]
-    public function supprimer(Request $request, Site $site, SiteRepository $repository, EntityManagerInterface $entityManager): Response
+    public function supprimer(Request $request, Site $site, SiteRepository $repository, EntityManagerInterface $entityManager, $id): Response
     {
+        // l'id correspond au site à supprimer
+//        $id = $site->getId();
+
+        // on récupère le site à supprimer
+        $site = $entityManager->getRepository(Site::class)->find($id);
+
+        if (!$site) {
+            throw $this->createNotFoundException('Site non trouvé');
+        }
+
         $entityManager->remove($site);
         $entityManager->flush();
-        return $this->redirectToRoute('app_site');
+
+        return $this->redirectToRoute('app_site'); // Redirigez vers la page de liste des sites après la suppression
     }
 }

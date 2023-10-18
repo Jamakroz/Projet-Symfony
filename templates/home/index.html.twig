@@ -5,39 +5,27 @@
 {% block body %}
 
     <h1>Liste des sorties</h1>
-    {# Formulaire de filtrage #}
-    <form method="get" action="{{ path('app_home') }}">
-        <div>
-            <label for="keywords">Rechercher une sortie par mots-clés:</label>
-            <input type="text" name="keywords" id="keywords">
-        </div>
-        {#        <div> #}
-        {#            <label for="site">Choisir un site:</label> #}
-        {#            <select name="site" id="site"> #}
-        {#                #}{# Boucle sur les sites pour créer les options du select #}
-        {#                {% for site in sites %} #}
-        {#                    <option value="{{ site.id }}">{{ site.nom }}</option> #}
-        {#                {% endfor %} #}
-        {#            </select> #}
-        {#        </div> #}
-        <div>
-            <label for="status">Choisir un statut:</label>
-            <select name="status" id="status">
-                <option value="open">Ouverte</option>
-                <option value="closed">Fermée</option>
-                <option value="cancelled">Annulée</option>
-            </select>
-        </div>
-        <div>
-            <label for="startDate">Date de début:</label>
-            <input type="datetime-local" name="startDate" id="startDate">
-        </div>
-        <div>
-            <label for="endDate">Date de fin:</label>
-            <input type="datetime-local" name="endDate" id="endDate">
-        </div>
-        <input type="submit" value="Filtrer">
-    </form>
+{#    #}{# Formulaire de filtrage #}
+{#    <form method="get" action="{{ path('app_home') }}">#}
+{#        {{ form_start(form) }}#}
+
+{#        {{ form_row(form.keywords) }}#}
+{#        {{ form_row(form.site) }}#}
+{#        {{ form_row(form.status) }}#}
+{#        {{ form_row(form.startDate) }}#}
+{#        {{ form_row(form.endDate) }}#}
+
+{#        <div class="checkboxes">#}
+{#            {{ form_row(form.checkbox1) }}#}
+{#            {{ form_row(form.checkbox2) }}#}
+{#            {{ form_row(form.checkbox3) }}#}
+{#            {{ form_row(form.checkbox4) }}#}
+{#        </div>#}
+
+{#        <input type="submit" value="Filtrer">#}
+
+{#        {{ form_end(form) }}#}
+{#    </form>#}
 
     <a href="{{ path('app_ajouter') }}" class="btn btn-primary">Crée une sortie</a>
 
