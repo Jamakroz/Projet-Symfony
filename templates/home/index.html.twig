@@ -49,6 +49,12 @@
                         <a href="{{ path('app_sortie_view', {id:sortie.id}) }}"><h5
                                     class="card-title">{{ sortie.nom }}</h5></a>
                         <p class="card-text">Date de début: {{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</p>
+                        <p class="card-text">Date de fin: {{ sortie.dateLimiteInscription|date('d/m/Y H:i') }}</p>
+                        <p class="card-text">Inscrits: {{ sortie.participantsInscrits|length}}/{{ sortie.nbInscriptionsMax }}</p>
+                        <p class="card-text">Etats: {{ sortie.participantsInscrits|length}}/{{ sortie.nbInscriptionsMax }}</p>
+                        <p class="card-text">Inscrits: {{ sortie.participantsInscrits|length}}/{{ sortie.nbInscriptionsMax }}</p>
+                        <p class="card-text">Organisateurs: {{ sortie.participantsInscrits|length}}/{{ sortie.nbInscriptionsMax }}</p>
+
                         {% if app.user == sortie.organisateur %}
                             <a href="{{ path('app_modifier',{id:sortie.id}) }}" class="btn btn-primary">Modifier</a>
                             {% if sortie.etat == Etat.CREATION %}

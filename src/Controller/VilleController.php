@@ -60,7 +60,7 @@ class VilleController extends AbstractController
             return $this->redirectToRoute('app_ville_index');
         }
 
-        return $this->render('ville/index.html.twig', [
+        return $this->render('ville/editVille.html.twig', [
             'form' => $form->createView(),  // Create a view of the form to render it
         ]);
     }
