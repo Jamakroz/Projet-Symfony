@@ -5,20 +5,21 @@
 {% block body %}
     <div class="container">
         <h1>Modifier un site</h1>
-        <form action="{{ path('app_site_modifier', {'id': site.id}) }}" method="post">
+        <div class="row">
             {{ form_start(form) }}
             <div class="form-group">
-                {{ form_label(form.nom, 'Nom du site') }}
-                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                {{ form_label(form.nom, 'Nom du site:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
+                <div class="col-lg-8">
+                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                </div>
             </div>
-
             <div class="form-group">
-                {{ form_label(form.url, 'URL du site') }}
-                {{ form_widget(form.url, {'attr': {'class': 'form-control'}}) }}
+                <div class="col-lg-offset-3 col-lg-8">
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
             </div>
-
-            <button type="submit" class="btn btn-primary">Modifier</button>
             {{ form_end(form) }}
-        </form>
+{#            <a href="{{ path('liste_des_sites') }}" class="btn btn-primary">Retour</a>#}
+        </div>
     </div>
 {% endblock %}

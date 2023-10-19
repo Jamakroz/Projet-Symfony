@@ -1,23 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification ville{% endblock %}
+{% block title %}Modification de la ville{% endblock %}
 
 {% block body %}
     <div class="container">
         <h1>Modification de la ville</h1>
-        <form action="{{ path('app_ville_modifier', {'id': ville.id}) }}" method="post">
-            {# Ne pas utiliser app.request.query.get() pour récupérer les valeurs #}
+        <div class="row">
+            {{ form_start(form) }}
             <div class="form-group">
-                <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="nom" value="{{ ville.nom }}" required class="form-control">
+                {{ form_label(form.nom, 'Nom de la Ville:', {'label_attr': {'class': 'col-lg-3 control-label'}}) }}
+                <div class="col-lg-8">
+                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                </div>
             </div>
-
+            {# Ajoutez d'autres champs de votre formulaire VilleType ici s'ils existent #}
             <div class="form-group">
-                <label for="codePostal">Code Postal :</label>
-                <input type="text" id="codePostal" name="codePostal" value="{{ ville.codePostal }}" required class="form-control">
+                <div class="col-lg-offset-3 col-lg-8">
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
             </div>
-
-            <button type="submit" class="btn btn-primary">Modifier</button>
-        </form>
+            {{ form_end(form) }}
+        </div>
     </div>
 {% endblock %}
