@@ -6,6 +6,7 @@ use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VilleRepository::class)]
 class Ville
@@ -16,9 +17,11 @@ class Ville
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\Regex(pattern: "/\S/", message: "Le nom ne peut pas contenir uniquement des espaces", match: true)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 5)]
+    #[Assert\Regex(pattern: "/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/", message: "Le code postal doit respecter le format requis", match: true)]
     private ?string $codePostal = null;
 
     #[ORM\OneToMany(mappedBy: 'ville', targetEntity: Lieu::class)]

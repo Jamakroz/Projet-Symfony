@@ -24,6 +24,7 @@ class Sortie
         max: 20,
         minMessage: "Le nom doit avoir entre 1 et 20 caractères.",
         maxMessage: "Le nom doit avoir entre 1 et 20 caractères.")]
+    #[Assert\Regex(pattern: "/\S/", message: "Le nom ne peut pas contenir uniquement des espaces", match: true)]
     private ?string $nom = null;
 
 

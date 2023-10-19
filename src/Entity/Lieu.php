@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\LieuRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LieuRepository::class)]
 class Lieu
@@ -14,6 +15,7 @@ class Lieu
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\Regex(pattern: "/\S/", message: "Le nom ne peut pas contenir uniquement des espaces", match: true)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
