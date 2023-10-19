@@ -78,30 +78,31 @@ class VilleController extends AbstractController
         return $this->redirectToRoute('app_ville_index');
     }
 
-    #[Route('/modifier', name: '_modifier')]
-    public function modifier(Request $request, VilleRepository $repository, EntityManagerInterface $entityManager, int $id = null): Response
+    #[Route('/modifier/{id}', name: '_modifier')]
+    public function modifier(Request $request, VilleRepository $repository, EntityManagerInterface $entityManager, int $id): Response
     {
-        if ($id != null) {
-            $ville = $repository->find($id);
-        } else {
-            $ville = new Ville();
+        $ville = $repository->find($id);
+
+        if (!$ville) {
+            throw $this->createNotFoundException('Ville non trouvée');
         }
 
         $form = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($ville);
             $entityManager->flush();
 
-            // A redirection should happen after form submission to prevent duplicate form submission on page refresh.
+            // Redirection après la modification pour éviter la soumission du formulaire en cas de rafraîchissement de la page.
             return $this->redirectToRoute('app_ville_index');
         }
 
         return $this->render('ville/editVille.html.twig', [
-            'form' => $form->createView(),  // Create a view of the form to render it
+            'form' => $form->createView(),
+            'ville' => $ville, // Vous pouvez transmettre l'objet $ville au formulaire si nécessaire
         ]);
     }
+
 
     #[Route('/ajouter', name: '_ajouter')]
     public function ajouter(Request $request, VilleRepository $repository, EntityManagerInterface $entityManager): Response

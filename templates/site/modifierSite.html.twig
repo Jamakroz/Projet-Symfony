@@ -3,7 +3,22 @@
 {% block title %}Modifier un site{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <h1>Modifier un site</h1>
+        <form action="{{ path('app_site_modifier', {'id': site.id}) }}" method="post">
+            {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.nom, 'Nom du site') }}
+                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
+            <div class="form-group">
+                {{ form_label(form.url, 'URL du site') }}
+                {{ form_widget(form.url, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-
+            <button type="submit" class="btn btn-primary">Modifier</button>
+            {{ form_end(form) }}
+        </form>
+    </div>
 {% endblock %}
