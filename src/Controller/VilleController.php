@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 #[Route('/ville', name: 'app_ville')]
 class VilleController extends AbstractController
 {
@@ -38,14 +39,11 @@ class VilleController extends AbstractController
     }
 
     #[Route('/editer/{id}', name: '_editer')]
-    public function editer(Request $request, VilleRepository $repository,EntityManagerInterface $entityManager, int $id = null): Response
+    public function editer(Request $request, VilleRepository $repository, EntityManagerInterface $entityManager, int $id = null): Response
     {
-        if($id != null)
-        {
+        if ($id != null) {
             $ville = $repository->find($id);
-        }
-        else
-        {
+        } else {
             $ville = new Ville();
         }
 
@@ -64,33 +62,28 @@ class VilleController extends AbstractController
             'form' => $form->createView(),  // Create a view of the form to render it
         ]);
     }
-    #[Route('/supprimer', name: '_supprimer')]
-    public function supprimer(Request $request, VilleRepository $repository,EntityManagerInterface $entityManager, int $id = null): Response
+
+    #[Route('/supprimer/{id}', name: '_supprimer')]
+    public function supprimer(VilleRepository $villeRepository, EntityManagerInterface $entityManager, int $id = null): Response
     {
-        if($id!= null)
-        {
-            $ville = $repository->find($id);
-        }
-        else
-        {
-            $ville = new Ville();
+        $ville = $villeRepository->find($id);
+
+        if (!$ville) {
+            throw $this->createNotFoundException('Ville non trouvé');
         }
 
         $entityManager->remove($ville);
         $entityManager->flush();
 
-        // A redirection should happen after form submission to prevent duplicate form submission on page refresh.
         return $this->redirectToRoute('app_ville_index');
     }
+
     #[Route('/modifier', name: '_modifier')]
-    public function modifier(Request $request, VilleRepository $repository,EntityManagerInterface $entityManager, int $id = null): Response
+    public function modifier(Request $request, VilleRepository $repository, EntityManagerInterface $entityManager, int $id = null): Response
     {
-        if($id!= null)
-        {
+        if ($id != null) {
             $ville = $repository->find($id);
-        }
-        else
-        {
+        } else {
             $ville = new Ville();
         }
 
@@ -109,8 +102,9 @@ class VilleController extends AbstractController
             'form' => $form->createView(),  // Create a view of the form to render it
         ]);
     }
+
     #[Route('/ajouter', name: '_ajouter')]
-    public function ajouter(Request $request, VilleRepository $repository,EntityManagerInterface $entityManager): Response
+    public function ajouter(Request $request, VilleRepository $repository, EntityManagerInterface $entityManager): Response
     {
         $ville = new Ville();
         $form = $this->createForm(VilleType::class, $ville);
