@@ -1,46 +1,117 @@
 {# templates/home/editerSortie.html.twig #}
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}#}
 
+
+{#{% block title %}{% if sortie.id is not null %}Modifier Sortie{% else %}Ajouter Sortie{% endif %}{% endblock %}#}
+
+{#{% block body %}#}
+{#    {% for error in errors %}#}
+{#        <li>{{ error.message }}</li>#}
+{#    {% endfor %}#}
+{#    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
+{#    <script>#}
+{#        $(document).ready(function () {#}
+{#            function loadLocations(cityId) {#}
+{#                $.ajax({#}
+{#                    url: "{{ path('app_get_lieu') }}",#}
+{#                    type: "GET",#}
+{#                    dataType: "json",#}
+{#                    data: {'cityId': cityId},#}
+{#                    async: true,#}
+{#                    success: function (data, status, xhr) {#}
+{#                        var selectbox = $('#sortie_lieu');#}
+{#                        selectbox.find('option').remove();#}
+{#                        $.each(data, function (i, d) {#}
+{#                            $('<option>').val(d.id).text(d.name).appendTo(selectbox);#}
+{#                        });#}
+{#                    }#}
+{#                });#}
+{#            }#}
+
+{#            var cityId = $('#sortie_ville').val();#}
+
+{#            loadLocations(cityId);  // charger les lieux au chargement de la page#}
+
+{#            $('#sortie_ville').change(function () {#}
+{#                cityId = $(this).val();#}
+
+{#                loadLocations(cityId);  // charger les lieux lorsque la ville est modifiée#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{#    <div class="container mt-4">#}
+{#        <h1>{% if sortie.id is not null %}Modifier Sortie{% else %}Ajouter Sortie{% endif %}</h1>#}
+{#        <div class="row">#}
+{#            <div class="col-md-6">#}
+{#                {{ form_start(form, {'attr': {'class': 'mt-3'}}) }}#}
+
+{#                <div class="form-group">#}
+{#                    {{ form_label(form.nom, 'Nom de la Sortie') }}#}
+{#                    {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom de la Sortie'}}) }}#}
+{#                </div>#}
+
+{#                <div class="form-group">#}
+{#                    {{ form_label(form.dateHeureDebut, 'Date et heure de début') }}#}
+{#                    {{ form_widget(form.dateHeureDebut, {'attr': {'class': 'form-control', 'placeholder': 'Date et heure de début'}}) }}#}
+{#                </div>#}
+
+{#                <div class="form-group">#}
+{#                    {{ form_label(form.duree, 'Durée (en minutes)') }}#}
+{#                    {{ form_widget(form.duree, {'attr': {'class': 'form-control', 'placeholder': 'Durée (en minutes)'}}) }}#}
+{#                </div>#}
+
+{#                <div class="form-group">#}
+{#                    {{ form_label(form.dateLimiteInscription, 'Date limite d\'inscription') }}#}
+{#                    {{ form_widget(form.dateLimiteInscription, {'attr': {'class': 'form-control', 'placeholder': 'Date limite d\'inscription'}}) }}#}
+{#                </div>#}
+
+{#                <div class="form-group">#}
+{#                    {{ form_label(form.nbInscriptionsMax, 'Nombre maximum d\'inscriptions') }}#}
+{#                    {{ form_widget(form.nbInscriptionsMax, {'attr': {'class': 'form-control', 'placeholder': 'Nombre maximum d\'inscriptions'}}) }}#}
+{#                </div>#}
+
+{#                <div class="form-group">#}
+{#                    {{ form_label(form.infosSortie, 'Informations sur la Sortie') }}#}
+{#                    {{ form_widget(form.infosSortie, {'attr': {'class': 'form-control', 'placeholder': 'Informations sur la Sortie'}}) }}#}
+{#                </div>#}
+
+{#                <div class="form-group">#}
+{#                    {{ form_label(form.ville, 'Ville') }}#}
+{#                    {{ form_widget(form.ville, {'attr': {'class': 'form-control', 'placeholder': 'Ville'}}) }}#}
+{#                </div>#}
+
+{#                <div class="form-group">#}
+{#                    {{ form_label(form.lieu, 'Lieu') }}#}
+{#                    {{ form_widget(form.lieu, {'attr': {'class': 'form-control', 'placeholder': 'Lieu'}}) }}#}
+{#                    <select id="sortie_lieu" name="sortie_lieu"></select>#}
+{#                </div>#}
+
+{#                <div class="form-group">#}
+{#                    <button type="submit" class="btn btn-primary">#}
+{#                        {% if sortie.id is not null %}Modifier{% else %}Ajouter{% endif %}#}
+{#                    </button>#}
+{#                    {% if sortie.id is not null %}#}
+{#                        {% if sortie.etat == etats.CREATION %}#}
+{#                            <a href="{{ path('app_publier', {id:sortie.id}) }}" class="btn btn-primary">Publier</a>#}
+{#                        {% endif %}#}
+{#                        {% if sortie.etat == etats.OPEN and sortie.organisateur == app.user %}#}
+{#                            <a href="{{ path('app_annuler', {id:sortie.id}) }}" class="btn btn-primary">Annuler</a>#}
+{#                        {% endif %}#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#                {{ form_end(form) }}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock %}#}
+
+{% extends 'base.html.twig' %}
 
 {% block title %}{% if sortie.id is not null %}Modifier Sortie{% else %}Ajouter Sortie{% endif %}{% endblock %}
 
 {% block body %}
-    {% for error in errors %}
-        <li>{{ error.message }}</li>
-    {% endfor %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            function loadLocations(cityId) {
-                $.ajax({
-                    url: "{{ path('app_get_lieu') }}",
-                    type: "GET",
-                    dataType: "json",
-                    data: {'cityId': cityId},
-                    async: true,
-                    success: function (data, status, xhr) {
-                        var selectbox = $('#sortie_lieu');
-                        selectbox.find('option').remove();
-                        $.each(data, function (i, d) {
-                            $('<option>').val(d.id).text(d.name).appendTo(selectbox);
-                        });
-                    }
-                });
-            }
-
-            var cityId = $('#sortie_ville').val();
-
-            loadLocations(cityId);  // charger les lieux au chargement de la page
-
-            $('#sortie_ville').change(function () {
-                cityId = $(this).val();
-
-                loadLocations(cityId);  // charger les lieux lorsque la ville est modifiée
-            });
-        });
-    </script>
     <div class="container mt-4">
-        <h1>{% if sortie.id is not null %}Modifier Sortie{% else %}Ajouter Sortie{% endif %}</h1>
+        <h1 class="mb-4">{% if sortie.id is not null %}Modifier la Sortie{% else %}Ajouter une Sortie{% endif %}</h1>
         <div class="row">
             <div class="col-md-6">
                 {{ form_start(form, {'attr': {'class': 'mt-3'}}) }}
@@ -51,8 +122,8 @@
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(form.dateHeureDebut, 'Date et heure de début') }}
-                    {{ form_widget(form.dateHeureDebut, {'attr': {'class': 'form-control', 'placeholder': 'Date et heure de début'}}) }}
+                    {{ form_label(form.dateHeureDebut, 'Date et Heure de Début') }}
+                    {{ form_widget(form.dateHeureDebut, {'attr': {'class': 'form-control', 'placeholder': 'Date et Heure de Début'}}) }}
                 </div>
 
                 <div class="form-group">
@@ -61,13 +132,13 @@
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(form.dateLimiteInscription, 'Date limite d\'inscription') }}
-                    {{ form_widget(form.dateLimiteInscription, {'attr': {'class': 'form-control', 'placeholder': 'Date limite d\'inscription'}}) }}
+                    {{ form_label(form.dateLimiteInscription, 'Date Limite d\'Inscription') }}
+                    {{ form_widget(form.dateLimiteInscription, {'attr': {'class': 'form-control', 'placeholder': 'Date Limite d\'Inscription'}}) }}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(form.nbInscriptionsMax, 'Nombre maximum d\'inscriptions') }}
-                    {{ form_widget(form.nbInscriptionsMax, {'attr': {'class': 'form-control', 'placeholder': 'Nombre maximum d\'inscriptions'}}) }}
+                    {{ form_label(form.nbInscriptionsMax, 'Nombre Maximum d\'Inscriptions') }}
+                    {{ form_widget(form.nbInscriptionsMax, {'attr': {'class': 'form-control', 'placeholder': 'Nombre Maximum d\'Inscriptions'}}) }}
                 </div>
 
                 <div class="form-group">
@@ -83,7 +154,6 @@
                 <div class="form-group">
                     {{ form_label(form.lieu, 'Lieu') }}
                     {{ form_widget(form.lieu, {'attr': {'class': 'form-control', 'placeholder': 'Lieu'}}) }}
-{#                    <select id="sortie_lieu" name="sortie_lieu"></select>#}
                 </div>
 
                 <div class="form-group">
@@ -92,12 +162,13 @@
                     </button>
                     {% if sortie.id is not null %}
                         {% if sortie.etat == etats.CREATION %}
-                            <a href="{{ path('app_publier', {id:sortie.id}) }}" class="btn btn-primary">Publier</a>
+                            <a href="{{ path('app_publier', {id:sortie.id}) }}" class="btn btn-secondary">Publier</a>
                         {% endif %}
                         {% if sortie.etat == etats.OPEN and sortie.organisateur == app.user %}
-                            <a href="{{ path('app_annuler', {id:sortie.id}) }}" class="btn btn-primary">Annuler</a>
+                            <a href="{{ path('app_annuler', {id:sortie.id}) }}" class="btn btn-danger">Annuler</a>
                         {% endif %}
                     {% endif %}
+{#                    <a href="{{ path('nom_de_votre_route_retour') }}" class="btn btn-secondary">Retour</a>#}
                 </div>
                 {{ form_end(form) }}
             </div>
