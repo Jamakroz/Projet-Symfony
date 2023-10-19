@@ -3,5 +3,21 @@
 {% block title %}Modification ville{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <h1>Modification de la ville</h1>
+        <form action="{{ path('app_ville_modifier', {'id': ville.id}) }}" method="post">
+            {# Ne pas utiliser app.request.query.get() pour récupérer les valeurs #}
+            <div class="form-group">
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="nom" value="{{ ville.nom }}" required class="form-control">
+            </div>
 
+            <div class="form-group">
+                <label for="codePostal">Code Postal :</label>
+                <input type="text" id="codePostal" name="codePostal" value="{{ ville.codePostal }}" required class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Modifier</button>
+        </form>
+    </div>
 {% endblock %}

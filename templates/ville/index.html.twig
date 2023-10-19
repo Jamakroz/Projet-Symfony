@@ -5,11 +5,6 @@
 {% block body %}
     <div class="container">
         <h1 class="text-primary">Liste des Villes</h1>
-
-        <div class="my-3">
-            <a href="{{ path('app_ville_ajouter') }}" class="btn btn-primary">Ajouter une Ville</a>
-        </div>
-
         {% if villes is not empty %}
             <table class="table">
                 <thead>
@@ -21,7 +16,8 @@
                 <tbody>
                 {% for ville in villes %}
                     <tr>
-                        <td>{{ ville.nom }}</td>
+                        <td>{{ ville.nom }}
+{#                        <td>{{ ville.code }}</td>#}
                         <td>
                             <a href="{{ path('app_ville_editer', {'id': ville.id}) }}" class="btn btn-primary">Modifier</a>
                             <a href="{{ path('app_ville_supprimer', {'id': ville.id}) }}" class="btn btn-danger">Supprimer</a>
