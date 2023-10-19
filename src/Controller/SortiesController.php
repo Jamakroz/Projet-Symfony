@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Enum\Etat;
 use App\Form\AnnulerSortieType;
+use App\Form\SortieFilterType;
 use App\Form\SortieType;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
@@ -23,8 +24,9 @@ class SortiesController extends AbstractController
 {
     #[Route('/', name: '_home')]
     #[Route('/sortie/{id}', name: '_sortie_view')]
-    public function index(SortieRepository $sortieRepository, int $id = null): Response
+    public function index(EntityManagerInterface $entityManager,SortieRepository $sortieRepository, int $id = null, Request $request): Response
     {
+        $sorties = [];
         if($id != null)
         {
             $etatConstants = (new ReflectionClass(Etat::class))->getConstants();
@@ -35,9 +37,25 @@ class SortiesController extends AbstractController
         }
         else{
             $etatConstants = (new ReflectionClass(Etat::class))->getConstants();
+            $form = $this->createForm(SortieFilterType::class);
+
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+
+               $sorties = $sortieRepository->filtrerSortie($this->getUser(),$entityManager,
+                   $form->get('nom')->getData() == null ? "[No_Name]" : $form->get('nom')->getData(),
+                    $form->get('site')->getData(),
+                    $form->get('dateDebut')->getData() == null ? New \DateTime('2001-01-01 00:00:00'): $form->get('dateDebut')->getData(),
+                    $form->get('dateFin')->getData() == null ? New \DateTime('2001-01-01 00:00:00'): $form->get('dateFin')->getData(),
+                    $form->get('mesChoix')->getData(),
+                    $form->get('etat')->getData());
+
+            }
+
             return $this->render('home/index.html.twig', [
                 'Etat' => $etatConstants,
-                'sortieList' => $sortieRepository->findAll(),
+                'sortieList' => $sorties,
+                'form' => $form
             ]);
         }
     }
