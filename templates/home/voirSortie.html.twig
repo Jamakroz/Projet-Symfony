@@ -7,12 +7,8 @@
         <h1 class="text-primary mb-4">Détails de la Sortie</h1>
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title">{{ sortie.nom }}</h2>
-                <p class="card-text"><strong>Date et Heure de la Sortie:</strong> {{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</p>
-                <p class="card-text"><strong>Date Limite d'Inscription:</strong> {{ sortie.dateLimiteInscription|date('d/m/Y H:i') }}</p>
-                <p class="card-text"><strong>Nombre de Places:</strong> {{ sortie.nbInscriptionsMax }}</p>
-                <p class="card-text"><strong>Durée:</strong> {{ sortie.duree }} minutes</p>
-                <p class="card-text"><strong>Description & infos :</strong> {{ sortie.infosSortie }}</p>
+                <!-- Contenu existant de votre sortie -->
+                <!-- ... -->
 
                 <h3 class="card-subtitle mb-2 text-muted">Participants Inscrits</h3>
                 <table class="table table-bordered mt-3">
@@ -25,17 +21,18 @@
                     <tbody>
                     {% for participant in sortie.participantsInscrits %}
                         <tr>
-                            <td><a href="{{ path('app_profile_id', {'id': participant.id}) }}">{{ participant.pseudo }}</a></td>
-                            <td>{{ participant.nom }} {{ participant.prenom }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ participant.pseudo }}</td>
+                            <td>
+                                {% if app.user == participant or app.user == sortie.Organisateur %}
+                                    <a href="{{ path('app_profile_id', {'id': participant.id}) }}">{{ participant.pseudo }}</a>
+                                {% else %}
+                                    {{ participant.pseudo }}
+                                {% endif %}
+                            </td>
                             <td>{{ participant.nom }} {{ participant.prenom }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-{#                <a href="{{ path('/') }}" class="btn btn-secondary mt-4">Retour</a>#}
             </div>
         </div>
     </div>
