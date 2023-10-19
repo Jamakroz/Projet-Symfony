@@ -25,6 +25,10 @@
                     <tbody>
                     {% for participant in sortie.participantsInscrits %}
                         <tr>
+                            <td><a href="{{ path('app_profile_id', {'id': participant.id}) }}">{{ participant.pseudo }}</a></td>
+                            <td>{{ participant.nom }} {{ participant.prenom }}</td>
+                        </tr>
+                        <tr>
                             <td>{{ participant.pseudo }}</td>
                             <td>{{ participant.nom }} {{ participant.prenom }}</td>
                         </tr>
