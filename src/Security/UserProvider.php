@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Entity\Participant;
 use App\Repository\ParticipantRepository;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -30,10 +31,10 @@ class UserProvider implements UserProviderInterface
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
         $user = $this->repository->findOneBy(['mail' => $identifier]) ?: $this->repository->findOneBy(['pseudo' => $identifier]);
-        //TODO: Implementer exception username not found
-//        if (!$user) {
-//            throw new UsernameNotFoundException(sprintf('"%s" n\'existe pas.', $emailOrOtherProperty));
-//        }
+
+        if (!$user) {
+            throw new UserNotFoundException(sprintf('"%s" n\'existe pas.', $identifier));
+        }
 
         return $user;
     }
