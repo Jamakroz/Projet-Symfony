@@ -1,63 +1,94 @@
 @import "~bootstrap/scss/bootstrap";
 
 body {
-    background-color: lightgray;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  background-color: lightgray;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .page-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .content {
-    flex: 1;
+  flex: 1;
 }
 
 .form-group label {
-    color: #007BFF;
+  color: #007BFF;
 }
 
 .form-group .form-control {
-    background-color: #F8F9FA;
+  background-color: #F8F9FA;
 }
 
 /* Style pour le formulaire de gestion de profil */
 .profile-form {
-    max-width: 400px; /* Largeur maximale du formulaire */
-    margin: 0 auto; /* Centrer le formulaire horizontalement */
+  max-width: 400px; /* Largeur maximale du formulaire */
+  margin: 0 auto; /* Centrer le formulaire horizontalement */
 
-    .form-group {
-        margin-bottom: 20px; /* Espacement entre les champs */
-    }
+  .form-group {
+    margin-bottom: 20px; /* Espacement entre les champs */
+  }
 
-    .btn-success {
-        display: block;
-        margin: 0 auto; /* Centrer le bouton de soumission */
-    }
+  .btn-success {
+    display: block;
+    margin: 0 auto; /* Centrer le bouton de soumission */
+  }
 }
 
 /* Style pour les alertes flash (succès et erreur) */
 .alert {
-    margin-top: 20px; /* Espacement entre les alertes et le formulaire */
+  margin-top: 20px; /* Espacement entre les alertes et le formulaire */
 }
 
 /* Optionnel : Style pour le champ de téléchargement de photo */
 .file-upload {
-    .custom-file-label::after {
-        content: "Parcourir";
-    }
+  .custom-file-label::after {
+    content: "Parcourir";
+  }
 }
 
 .btn-margin-right {
-    margin-right: 10px; /* Ajustez la valeur de la marge selon vos besoins */
+  margin-right: 10px; /* Ajustez la valeur de la marge selon vos besoins */
 }
 
 .btn-margin-left {
-    margin-left: 10px; /* Ajustez la valeur de la marge selon vos besoins */
+  margin-left: 10px; /* Ajustez la valeur de la marge selon vos besoins */
+}
+
+/* Custom checkbox styles */
+.custom-checkbox-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.custom-control-input {
+  margin-left: 10px; /* Adjust the margin as needed */
+}
+
+.custom-control-label::before {
+  border: 2px solid #007BFF;
+  border-radius: 0.25rem;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #007BFF;
+  border-color: #007BFF;
+}
+
+.custom-control-input:checked ~ .custom-control-label::after {
+  content: "\2713"; /* Checkmark symbol */
+  color: #fff;
 }

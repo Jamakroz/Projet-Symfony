@@ -3,9 +3,9 @@
 {% block title %}Crée Profils{% endblock %}
 
 {% block body %}
-{#{{ form_start(form) }}#}
-{#    <button type="submit" class="btn btn-success">Ajouter</button>#}
-{#{{ form_end(form)}}#}
+    {# {{ form_start(form) }} #}
+    {#    <button type="submit" class="btn btn-success">Ajouter</button> #}
+    {# {{ form_end(form)}} #}
 
     <section class="h-100 h-custom" style="background-color: lightgray;">
         <div class="container py-5 h-100">
@@ -31,13 +31,15 @@
                                 <div class="form-outline mb-4">
                                     {{ form_label(form.telephone) }}
                                     {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
-                                    <label class="form-label" for="form3Example1q">{{ form_help(form.telephone) }}</label>
+                                    <label class="form-label"
+                                           for="form3Example1q">{{ form_help(form.telephone) }}</label>
                                     {{ form_errors(form.telephone) }}
                                 </div>
                                 <div class="form-outline mb-4">
                                     {{ form_label(form.mail) }}
                                     {{ form_widget(form.mail, {'attr': {'class': 'form-control'}}) }}
-                                    <label class="form-label" for="form3Example1q">{{ form_help(form.telephone) }}</label>
+                                    <label class="form-label"
+                                           for="form3Example1q">{{ form_help(form.telephone) }}</label>
                                     {{ form_errors(form.mail) }}
                                 </div>
                                 <div class="form-outline mb-4">
@@ -49,21 +51,46 @@
                                 <div class="form-outline mb-4">
                                     {{ form_label(form.password) }}
                                     {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
-                                    <label class="form-label" for="form3Example1q">{{ form_help(form.password) }}</label>
+                                    <label class="form-label"
+                                           for="form3Example1q">{{ form_help(form.password) }}</label>
                                     {{ form_errors(form.password) }}
                                 </div>
                                 <div class="form-outline mb-4">
                                     {{ form_label(form.site) }}
                                     {{ form_widget(form.site, {'attr': {'class': 'form-control'}}) }}
-                                    <label class="form-label" for="form3Example1q">{{ form_help(form.password) }}</label>
+                                    <label class="form-label"
+                                           for="form3Example1q">{{ form_help(form.password) }}</label>
                                     {{ form_errors(form.site) }}
                                 </div>
                                 <div class="form-group">
                                     {{ form_widget(form._token, {'attr': {'class': 'form-control'}}) }}
                                 </div>
-                                <button type="submit" class="btn btn-success">Ajouter</button>
+                                <div class="form-check form-check-inline">
+                                    <label class="custom-checkbox-label">
+                                        <span>{{ form_label(form.administrateur) }}</span>
+                                        <span class="custom-checkbox">
+                                            {{ form_widget(form.administrateur, {'attr': {'class': 'custom-control-input'}}) }}
+                                            <span class="custom-control-label"></span>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <label class="custom-checkbox-label">
+                                        <span>{{ form_label(form.actif) }}</span>
+                                        <span class="custom-checkbox">
+                                            {{ form_widget(form.actif, {'attr': {'class': 'custom-control-input'}}) }}
+                                            <span class="custom-control-label"></span>
+                                        </span>
+                                    </label>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success">Ajouter</button>
+                                </div>
                             </form>
-                            {{ form_end(form)}}
+                            {{ form_end(form) }}
                         </div>
                     </div>
                 </div>
