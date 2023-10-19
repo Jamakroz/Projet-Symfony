@@ -72,6 +72,8 @@ class AppFixtures extends Fixture
             $lieu->setNom("ENI - Campus " . $villeData['nom']);
             $lieu->setRue($index === 0 ? '3 Rue Michael Faraday' : ($index === 1 ? '8 Rue Léo Lagrange' : ($index === 2 ? '2 Rue Georges Perros' : '19 Av. Léo Lagrange Bâtiment B et C')));
             $lieu->setVille($ville);
+            $lieu->setLatitude(5);
+            $lieu->setLongitude(10);
 
             $manager->persist($lieu);
         }
