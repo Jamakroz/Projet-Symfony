@@ -23,11 +23,13 @@ class ParticipantType extends AbstractType
             ->add('telephone')
             ->add('mail')
             ->add('administrateur', CheckboxType::class, [
-                'label' => 'Administrateur ?'
+                'label' => 'Administrateur ?',
+                'required' => false
             ])
             ->add('actif', CheckboxType::class, [
                 'label' => 'Actif ?',
-                'attr' => ['checked' => true]
+                'attr' => ['checked' => true],
+                'required' => false
             ])
             ->add('pseudo')
             ->add('password', RepeatedType::class, [

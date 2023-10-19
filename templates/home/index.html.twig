@@ -56,7 +56,7 @@
                                 {% elseif sortie.etat == 'OPEN' %}
                                     <a href="{{ path('app_annuler', {id: sortie.id}) }}" class="btn btn-danger btn-sm">Annuler</a>
                                 {% endif %}
-                            {% elseif not app.user in sortie.participantsInscrits and sortie.etat == 'OPEN' and 'now'|date('U') < sortie.dateLimiteInscription|date('U') %}
+                            {% elseif (app.user not in sortie.participantsInscrits) and (sortie.etat == Etat.OPEN) and ('now'|date('U') < sortie.dateLimiteInscription|date('U')) %}
                                 <a href="{{ path('app_inscription', {id: sortie.id}) }}" class="btn btn-primary btn-sm">S'inscrire</a>
                             {% elseif 'now'|date('U') < sortie.dateLimiteInscription|date('U') and app.user in sortie.participantsInscrits %}
                                 <a href="{{ path('app_desister', {id: sortie.id}) }}" class="btn btn-danger btn-sm">Se désister</a>
