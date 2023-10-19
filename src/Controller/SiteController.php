@@ -41,13 +41,11 @@ class SiteController extends AbstractController
             'sites' => $villes,
         ]);
     }
-    /**
-     * @throws OptimisticLockException
-     * @throws ORMException
-     */
-    #[Route('/site/modifier', name: 'app_site_modifier')]
-    public function modifier(Request $request, Site $site, SiteRepository $repository, EntityManagerInterface $entityManager): Response
+
+    #[Route('/site/modifier/{id}', name: 'app_site_modifier')]
+    public function modifier(Request $request, SiteRepository $siteRepository, EntityManagerInterface $entityManager, int $id = null): Response
     {
+        $site = $siteRepository->find($id);
         $form = $this->createForm(SiteType::class, $site);
         $form->handleRequest($request);
 
@@ -58,21 +56,15 @@ class SiteController extends AbstractController
         }
         return $this->render('site/modifierSite.html.twig', [
             'form' => $form,
-          'site' => $site,
+            'site' => $site,
         ]);
     }
-    /**
-     * @throws OptimisticLockException
-     * @throws ORMException
-     */
-    #[Route('/site/supprimer/', name: 'app_site_supprimer')]
-    public function supprimer(Request $request, Site $site, SiteRepository $repository, EntityManagerInterface $entityManager, $id): Response
-    {
-        // l'id correspond au site à supprimer
-//        $id = $site->getId();
 
+    #[Route('/site/supprimer/{id}', name: 'app_site_supprimer')]
+    public function supprimer(SiteRepository $siteRepository, EntityManagerInterface $entityManager, $id): Response
+    {
         // on récupère le site à supprimer
-        $site = $entityManager->getRepository(Site::class)->find($id);
+        $site = $siteRepository->find($id);
 
         if (!$site) {
             throw $this->createNotFoundException('Site non trouvé');
