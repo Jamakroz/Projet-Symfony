@@ -45,13 +45,9 @@ class SortieFilterType extends AbstractType
                 'data'=>null,
                 'required'=>false
             ])
-//            ->add('isOrganisateur')
-//            ->add('isInscrit')
-//            ->add('isNotInscrit')
-//            ->add('isPastSortie')
             ->add('mesChoix', ChoiceType::class, [
                 'choices'  => [
-                    'Je susi organisateur' => 'isOrganisateur',
+                    'Je suis organisateur' => 'isOrganisateur',
                     'Je suis inscrit' => 'isInscrit',
                     'Je suis pas inscrit' => 'isNotInscrit'
                 ],
