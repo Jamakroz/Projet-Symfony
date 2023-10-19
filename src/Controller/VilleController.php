@@ -64,4 +64,68 @@ class VilleController extends AbstractController
             'form' => $form->createView(),  // Create a view of the form to render it
         ]);
     }
+    #[Route('/supprimer', name: '_supprimer')]
+    public function supprimer(Request $request, VilleRepository $repository,EntityManagerInterface $entityManager, int $id = null): Response
+    {
+        if($id!= null)
+        {
+            $ville = $repository->find($id);
+        }
+        else
+        {
+            $ville = new Ville();
+        }
+
+        $entityManager->remove($ville);
+        $entityManager->flush();
+
+        // A redirection should happen after form submission to prevent duplicate form submission on page refresh.
+        return $this->redirectToRoute('app_ville_index');
+    }
+    #[Route('/modifier', name: '_modifier')]
+    public function modifier(Request $request, VilleRepository $repository,EntityManagerInterface $entityManager, int $id = null): Response
+    {
+        if($id!= null)
+        {
+            $ville = $repository->find($id);
+        }
+        else
+        {
+            $ville = new Ville();
+        }
+
+        $form = $this->createForm(VilleType::class, $ville);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($ville);
+            $entityManager->flush();
+
+            // A redirection should happen after form submission to prevent duplicate form submission on page refresh.
+            return $this->redirectToRoute('app_ville_index');
+        }
+
+        return $this->render('ville/editVille.html.twig', [
+            'form' => $form->createView(),  // Create a view of the form to render it
+        ]);
+    }
+    #[Route('/ajouter', name: '_ajouter')]
+    public function ajouter(Request $request, VilleRepository $repository,EntityManagerInterface $entityManager): Response
+    {
+        $ville = new Ville();
+        $form = $this->createForm(VilleType::class, $ville);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($ville);
+            $entityManager->flush();
+
+            // A redirection should happen after form submission to prevent duplicate form submission on page refresh.
+            return $this->redirectToRoute('app_ville_index');
+        }
+
+        return $this->render('ville/editVille.html.twig', [
+            'form' => $form->createView(),  // Create a view of the form to render it
+        ]);
+    }
 }

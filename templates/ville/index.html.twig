@@ -3,40 +3,44 @@
 {% block title %}Ville{% endblock %}
 
 {% block body %}
-    <div class="container bootstrap snippets bootdey">
-        <h1 class="text-primary">Ville</h1>
+    <div class="container">
+        <h1 class="text-primary">Liste des Villes</h1>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Nom de la ville</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-{#            crée un bouton pour crée une sortie, et que le bouton redirge vers /ajouter#}
-<bouton> </bouton>
-            <tbody>
-            {% for ville in villes %}
+        <div class="my-3">
+            <a href="{{ path('app_ville_ajouter') }}" class="btn btn-primary">Ajouter une Ville</a>
+        </div>
+
+        {% if villes is not empty %}
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>{{ ville.nom }}</td>
-                    <td>
-                        <a href="{{ path('app_ville_editer', {'id': ville.id}) }}" class="btn btn-primary">Modifier</a>
-                        <!-- Ajoutez ici d'autres actions comme la suppression si nécessaire -->
-                    </td>
+                    <th>Nom de la Ville</th>
+                    <th>Actions</th>
                 </tr>
-            {% else %}
-                <tr>
-                    <td colspan="2">Aucune ville n'est disponible.</td>
-                </tr>
-            {% endfor %}
-            <td>
-{#                {%  if(form != null) %}#}
-                {{ form_start(form) }}
-                    <button type="submit" class="btn btn-primary">Ajouter</button>
-                {{ form_end(form) }}
-{#                {% endif %}#}
-            </td>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for ville in villes %}
+                    <tr>
+                        <td>{{ ville.nom }}</td>
+                        <td>
+                            <a href="{{ path('app_ville_editer', {'id': ville.id}) }}" class="btn btn-primary">Modifier</a>
+                            <a href="{{ path('app_ville_supprimer', {'id': ville.id}) }}" class="btn btn-danger">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucune ville n'est disponible.</p>
+        {% endif %}
+
+        {# Formulaire d'ajout de ville #}
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.nom, 'Nom de la Ville') }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+        {{ form_end(form) }}
     </div>
 {% endblock %}
