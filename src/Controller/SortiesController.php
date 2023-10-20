@@ -82,14 +82,14 @@ class SortiesController extends AbstractController
             if ($sortie->getId() != null) {
                 $sortie
                     //TODO: ETAT auto géré dans le back, PAS DE MODIF MANUEL
-                    ->setEtat(Etat::CREATION());
+                    ->setEtat(Etat::CREATION);
             }
             else{
                 $sortie->setOrganisateur($this->getUser());
-                $sortie->setEtat(Etat::CREATION());
+                $sortie->setEtat(Etat::CREATION);
                 $sortie->setSite($this->getUser()->getSite());
                 $sortie->setLieu($form->get('lieu')->getData());
-              //  dd($sortie);
+
             }
             $entityManager->persist($sortie);
             $entityManager->flush();
@@ -117,7 +117,7 @@ class SortiesController extends AbstractController
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
             $sortie = $form->getData();
-            $sortie->setEtat(Etat::CANCELED());
+            $sortie->setEtat(Etat::CANCELED);
             $entityManager->flush();
             $this->addFlash(
                 'success',
@@ -150,7 +150,7 @@ class SortiesController extends AbstractController
 
             if($sortie->getNbInscriptionsMax() == count($sortie->getParticipantsInscrits()) || $sortie->getDateLimiteInscription() < date("Y-m-d"))
             {
-                $sortie->setEtat(Etat::CLOSED());
+                $sortie->setEtat(Etat::CLOSED);
             }
 
             $this->addFlash(
@@ -206,7 +206,7 @@ class SortiesController extends AbstractController
             $sortie = $sr->find($id);
             if($this->getUser() === $sortie->getOrganisateur())
             {
-                $sortie->setEtat(Etat::OPEN());
+                $sortie->setEtat(Etat::OPEN);
                 $entityManager->flush();
             }
         }
